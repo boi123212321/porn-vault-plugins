@@ -1,129 +1,106 @@
 module.exports = async ({
-  $createImage,
   args,
-  $axios,
-  $moment,
-  $cheerio,
   $throw,
   $log,
   actorName,
+  $createLocalImage,
+  $fs,
+  $path,
 }) => {
   if (!actorName)
     $throw("Uh oh. You shouldn't use the plugin for this type of event");
 
-  $log(
-    `Scraping freeones date for ${actorName}, dry mode: ${args.dry || false}...`
+  const thumbPath = $path.resolve(args.path_thumb);
+  const altPath = $path.resolve(args.path_alt);
+  const avatarPath = $path.resolve(args.path_avatar);
+  const heroPath = $path.resolve(args.path_hero);
+
+  if (!thumbPath) $throw("Missing thumbnail folder path!");
+  if (!altPath) $throw("Missing alt-thumbnail folder path!");
+  if (!avatarPath) $throw("Missing avatar folder path!");
+  if (!heroPath) $throw("Missing hero folder path!");
+
+  const exts = [".jpg", ".png", ".gif"];
+
+  $log(`Trying to find thumbnail pictures of ${actorName} in ${thumbPath}`);
+
+  const thumbfiles = $fs.readdirSync(thumbPath);
+  const thumbhit = thumbfiles.find((thumbname) =>
+    thumbname.toLowerCase().includes(actorName.toLowerCase())
+  );
+  
+  $log(`Trying to find alt thumbnail pictures of ${actorName} in ${altPath}`);
+  
+  const altfiles = $fs.readdirSync(altPath);
+  const althit = altfiles.find((altname) =>
+    altname.toLowerCase().includes(actorName.toLowerCase())
+  );
+  
+  $log(`Trying to find avatar pictures of ${actorName} in ${avatarPath}`);
+
+  const avatarfiles = $fs.readdirSync(avatarPath);
+  const avatarhit = avatarfiles.find((avatarname) =>
+    avatarname.toLowerCase().includes(actorName.toLowerCase())
+  );
+  
+  $log(`Trying to find hero pictures of ${actorName} in ${heroPath}`);
+  
+  const herofiles = $fs.readdirSync(heroPath);
+  const herohit = herofiles.find((heroname) =>
+    heroname.toLowerCase().includes(actorName.toLowerCase())
   );
 
-  const blacklist = args.blacklist || [];
-  if (!args.blacklist) $log("No blacklist defined, returning everything...");
+  //Thumbnail definition
 
-  const petiteThreshold = parseInt(args.petiteThreshold) || 160;
-
-  const url = `https://freeones.xxx/${actorName.replace(/ /g, "-")}/profile`;
-  let html;
-  try {
-    html = (await $axios.get(url)).data;
-  } catch (e) {
-    $throw("Error fetching url: " + e.message);
+  if (thumbhit && exts.some((ext) => thumbhit.endsWith(ext))) {
+    $log(`Found thumbnail picture for ${actorName}`);
+    var thumb_image = await $createLocalImage(
+      $path.join(thumbPath, thumbhit),
+      actorName,
+      true
+    );
   }
-
-  const $ = $cheerio.load(html);
-
-  function getHeight() {
-    if (blacklist.includes("height")) return {};
-    $log("Getting height...");
-
-    const el = $('[data-test="link_height"] .text-underline-always');
-    if (!el) return {};
-
-    const raw = $(el).text();
-    const cm = raw.match(/\d+cm/)[0];
-    if (!cm) return {};
-
-    return { height: parseInt(cm.replace("cm", "")) };
+  
+  //Alt Thumbnail definition
+  
+  if (althit && exts.some((ext) => althit.endsWith(ext))) {
+    $log(`Found alt thumbnail picture for ${actorName}`);
+    var alt_image = await $createLocalImage(
+      $path.join(altPath, althit),
+      actorName,
+      true
+    );
   }
-
-  function scrapeText(prop, selector) {
-    if (blacklist.includes(prop)) return {};
-    $log(`Getting ${prop}...`);
-
-    const el = $(selector);
-    if (!el) return {};
-
-    return { [prop]: el.text() };
+  
+  //Avatar definition
+  
+  if (avatarhit && exts.some((ext) => avatarhit.endsWith(ext))) {
+    $log(`Found avatar picture for ${actorName}`);
+    var avatar_image = await $createLocalImage(
+      $path.join(avatarPath, avatarhit),
+      actorName,
+      true
+    );
   }
-
-  async function getAvatar() {
-    if (args.dry) return {};
-    if (blacklist.includes("avatar")) return {};
-    $log("Getting avatar...");
-
-    const imgEl = $(".profile-header .img-fluid");
-    if (!imgEl) return {};
-
-    const url = $(imgEl).attr("src");
-    const imgId = await $createImage(url, `${actorName} (avatar)`);
-
-    return { avatar: imgId };
+  
+  //Hero definition
+  
+  if (herohit && exts.some((ext) => herohit.endsWith(ext))) {
+    $log(`Found hero picture for ${actorName}`);
+    var hero_image = await $createLocalImage(
+      $path.join(heroPath, herohit),
+      actorName,
+      true
+    );
   }
-
-  function getAge() {
-    if (blacklist.includes("bornOn")) return {};
-    $log("Getting age...");
-
-    const aTag = $('[data-test="section-personal-information"] a');
-    if (!aTag) return {};
-
-    const href = $(aTag).attr("href");
-    const yyyymmdd = href.match(/\d\d\d\d-\d\d-\d\d/);
-
-    if (yyyymmdd && yyyymmdd.length) {
-      const date = yyyymmdd[0];
-      const timestamp = $moment(date, "YYYY-MM-DD").valueOf();
-      return {
-        bornOn: timestamp,
-      };
-    } else {
-      $log("Could not find actor birth date.");
-      return {};
-    }
-  }
-
-  const custom = {
-    ...scrapeText(
-      "hairColor",
-      '[data-test="link_hair_color"] .text-underline-always'
-    ),
-    ...scrapeText(
-      "eyeColor",
-      '[data-test="link_eye_color"] .text-underline-always'
-    ),
-    ...scrapeText(
-      "ethnicity",
-      '[data-test="link_ethnicity"] .text-underline-always'
-    ),
-    ...getHeight(),
-  };
-
-  const data = {
-    ...getAge(),
-    ...(await getAvatar()),
-    custom,
-  };
-
-  if (!blacklist.includes("labels")) {
-    data.labels = [];
-    if (custom.hairColor) data.labels.push(`${custom.hairColor} Hair`);
-    if (custom.eyeColor) data.labels.push(`${custom.eyeColor} Eyes`);
-    if (custom.ethnicity) data.labels.push(custom.ethnicity);
-    if (custom.height && custom.height <= petiteThreshold)
-      data.labels.push("Petite");
-  }
-
-  if (args.dry === true) {
-    $log("Would have returned:", data);
-    return {};
-  }
-  return data;
+  
+  return {
+      [args.target_thumb || thumbnail]: thumb_image,
+	  [args.target_alt || altThumbnail]: alt_image,
+	  [args.target_avatar || avatar]: avatar_image,
+	  [args.target_hero || hero]: hero_image,
+    };
+  
+  $log(`Found no picture for ${actorName}`);
+  return {};
 };
