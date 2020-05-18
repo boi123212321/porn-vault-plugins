@@ -22,7 +22,7 @@
     This plugin has feature parity with freeones_age.js (above) with additional features.
 
     Enjoy!
-        - github.com/slybot
+       - github.com/slybot
 */
 async ({
     event,
