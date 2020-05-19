@@ -1,0 +1,105 @@
+{
+  "name": "amdex",
+  "version": "1.4.0",
+  "authors": ["slybot, john4valor, pizzajohnny"],
+  "description": "Finds actor profile pics and populates custom fields. Work has ceased on Amdex, in favor of development for feature parity with FreeOnes instead",
+  "arguments": [
+    {
+      "name": "path",
+      "type": "String",
+      "required": true,
+      "description": "Folder to search images in"
+    },
+    {
+      "name": "set_dateofbirth",
+      "type": "String",
+      "required": true,
+      "default": "true",
+      "description": "Set DOB (possible values: 'true', 'false')"
+    }
+	{
+      "name": "set_avatar",
+      "type": "String",
+      "required": true,
+      "default": "true",
+      "description": "Set avatar picture (possible values: 'true', 'false')"
+    }
+	{
+      "name": "set_thumbnail",
+      "type": "String",
+      "required": true,
+      "default": "true",
+      "description": "Set thumbnail picture (possible values: 'true', 'false')"
+    }
+	{
+      "name": "set_alt_thumbnail",
+      "type": "String",
+      "required": true,
+      "default": "true",
+      "description": "Set alt thumbnail picture (possible values: 'true', 'false')"
+    }
+	{
+      "name": "use_thumbnail_as_avatar_if_not_available",
+      "type": "String",
+      "required": true,
+      "default": "false",
+      "description": "Use thumbnail image as avatar if proper avatar cannot be found (possible values: 'true', 'false')"
+    }
+	{
+      "name": "set_alias",
+      "type": "String",
+      "required": true,
+      "default": "true",
+      "description": "Obtain alias information (possible values: 'true', 'false')"
+    }
+	{
+      "name": "set_bio",
+      "type": "String",
+      "required": true,
+      "default": "true",
+      "description": "Obtain bio information (possible values: 'true', 'false')"
+    }
+	{
+      "name": "dateofbirth_source",
+      "type": "String",
+      "required": true,
+      "default": "freeones",
+      "description": "Choose source of DOB data (possible values: 'freeones', 'tpdb')"
+    }
+	{
+      "name": "thumbnail_source",
+      "type": "String",
+      "required": true,
+      "default": "babepedia",
+      "description": "Choose source of thumbnail image (possible values: 'babepedia')"
+    }
+	{
+      "name": "alt_thumbnail_source",
+      "type": "String",
+      "required": true,
+      "default": "babepedia",
+      "description": "Choose source of alt thumbnail image (possible values: 'babepedia')"
+    }
+	{
+      "name": "use_next_source_on_failure",
+      "type": "String",
+      "required": false,
+      "default": "false",
+      "description": "In-development feature, never completed."
+    }
+	{
+      "name": "prefer_metric",
+      "type": "String",
+      "required": true,
+      "default": "false",
+      "description": "Whether metric is preferred for height and weight data (possible values: 'true', 'false')"
+    }
+	{
+      "name": "source_settings",
+      "type": "String",
+      "required": true,
+      "default": "",
+      "description": "Section to choose data from each source (refer to amdex code)"
+    }
+  ]
+}
