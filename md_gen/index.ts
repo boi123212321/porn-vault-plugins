@@ -3,36 +3,38 @@ import * as nodepath from "path";
 import Handlebars from "handlebars";
 const table = require("markdown-table") as (val: any) => any;
 
-const template = fs.readFileSync("template.md", "utf-8");
+const pluginTemplate = fs.readFileSync("plugin_template.md", "utf-8");
 
-const tableHeaders = ["Name", "Type", "Required", "Description"];
+const pluginFolder = nodepath.resolve("../plugins");
+const pluginNames = fs.readdirSync(pluginFolder);
 
-const generatePluginDocs = async () => {
-  const pluginFolder = nodepath.resolve("../plugins");
-  const pluginNames = fs.readdirSync(pluginFolder);
+const info: Record<string, any> = {};
 
+const generatePluginDocs = () => {
   pluginNames.forEach((name) => {
     console.log(`Generating docs for ${name}...`);
     const pluginPath = nodepath.join(pluginFolder, name);
 
     const infoPath = nodepath.join(pluginPath, "info.json");
-    const info = JSON.parse(fs.readFileSync(infoPath, "utf-8"));
+    const pluginInfo = JSON.parse(fs.readFileSync(infoPath, "utf-8"));
+    info[name] = pluginInfo;
 
     const docPath = nodepath.join(pluginPath, "docs.md");
     const docs = fs.existsSync(docPath)
       ? fs.readFileSync(docPath, "utf-8")
       : null;
 
-    const rendered = Handlebars.compile(template)({
+    const tableHeaders = ["Name", "Type", "Required", "Description"];
+    const rendered = Handlebars.compile(pluginTemplate)({
       name,
-      version: info.version,
-      description: info.description,
-      authors: info.authors,
+      version: pluginInfo.version,
+      description: pluginInfo.description,
+      authors: pluginInfo.authors,
       docs,
-      hasArgs: info.arguments && info.arguments.length,
+      hasArgs: pluginInfo.arguments && pluginInfo.arguments.length,
       argsTable: table([
         tableHeaders,
-        ...(info.arguments || []).map((arg: any) => [
+        ...(pluginInfo.arguments || []).map((arg: any) => [
           arg.name,
           arg.type,
           arg.required,
@@ -44,6 +46,20 @@ const generatePluginDocs = async () => {
     fs.writeFileSync(readmePath, rendered, "utf-8");
     console.log(`${name} done`);
   });
+
+  console.log("Generating index...");
+
+  const indexTemplate = fs.readFileSync("template.md", "utf-8");
+  const tableHeaders = ["Plugin", "Description"];
+  const rendered = Handlebars.compile(indexTemplate)({
+    table: table([
+      tableHeaders,
+      ...Object.values(info).map((arg: any) => [arg.name, arg.description]),
+    ]),
+  });
+  const indexReadmePath = nodepath.resolve("../README.md");
+  fs.writeFileSync(indexReadmePath, rendered, "utf-8");
+  console.log(`Index done`);
 };
 
 generatePluginDocs();
