@@ -1,8 +1,8 @@
 {
   "name": "freeones",
-  "version": "0.0.1",
-  "authors": ["boi123212321"],
-  "description": "Scrape data from freeones.xxx",
+  "version": "0.4.0",
+  "authors": ["boi123212321","john4valor"],
+  "description": "Scrape data from freeones.xxx. Custom fields can only be named as follows (not case sensitive): Hair Color, Eye Color, Ethnicity, Height, Weight, Birthplace, Zodiac",
   "arguments": [
     {
       "name": "dry",
@@ -16,7 +16,14 @@
       "type": "Array<String>",
       "required": false,
       "default": [],
-      "description": "Array of data fields to omit (possible values: 'height', 'avatar', 'bornOn', 'labels', 'hairColor', 'eyeColor', 'ethnicity')"
+      "description": "Array of data fields to omit (possible values: 'zodiac', 'aliases', 'height', 'weight', 'avatar', 'bornOn', 'labels', 'hair color', 'eye color', 'ethnicity')"
+    },
+	{
+      "name": "useImperial",
+      "type": "String",
+      "required": false,
+      "default": [],
+      "description": "Use imperial units for height and weight (possible values: 'true', 'false')"
     }
   ]
 }

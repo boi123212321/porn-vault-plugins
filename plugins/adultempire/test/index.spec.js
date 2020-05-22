@@ -15,4 +15,14 @@ describe("adultempire", () => {
     expect(result.backCover).to.be.a("string");
     expect(result.studio).to.be.a("string").equal("Tushy Raw");
   });
+
+  it("Should not fetch covers etc (404)", async () => {
+    console.log("Fetching adultempire.com...");
+    const result = await plugin({
+      ...context,
+      movieName: "fasdfawbwaerawerawebr",
+      args: {},
+    });
+    expect(result).to.deep.equal({});
+  });
 });
