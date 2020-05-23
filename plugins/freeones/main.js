@@ -200,6 +200,35 @@ module.exports = async ({
     }
   }
 
+  function getMeasurements() {
+    if (isBlacklisted("measurements")) return {};
+    $log("Getting measurements...");
+
+    const braSelector = $('[data-test="p-measurements"] a[href*="%5Bbra%5D"]');
+	const braSize = braSelector.attr("href").split("=").slice(-1)[0];
+	const chestSize = braSize.substr(0,2);
+	const cupSize = braSize.substr(2,1);
+	
+	const waistSelector = $('[data-test="p-measurements"] a[href*="%5Bwaist%5D"]');
+	const waistSize = waistSelector.attr("href").split("=").slice(-1)[0].split(",").slice(-1)[0];
+	
+	const hipSelector = $('[data-test="p-measurements"] a[href*="%5Bhip%5D"]');
+	const hipSize = hipSelector.attr("href").split("=").slice(-1)[0].split(",").slice(-1)[0];
+	
+	const separator = "-";
+	
+	const fullMeasurements = braSize.concat(separator,waistSize,separator,hipSize);
+	
+    return {
+		bra: braSize,
+		chest: chestSize,
+		cupsize: cupSize,
+		waist: waistSize,
+		hips: hipSize,
+		measurements: fullMeasurements,
+	}
+  }
+
   function getAlias() {
     if (isBlacklisted("aliases")) return {};
     $log("Getting aliases...");
@@ -215,6 +244,28 @@ module.exports = async ({
 
     return { aliases: alias_fin };
   }
+  
+  function getCareer() {
+    if (isBlacklisted("career")) return {};
+    $log("Getting career info...");
+
+    const careerSelector = $(".timeline-horizontal p.m-0");
+	if (!careerSelector) return {};
+	
+	let careerStart = $(careerSelector[0]).text();
+	if (careerStart === "Begin") {
+		careerStart = "";
+	}
+	let careerEnd = $(careerSelector[1]).text();
+	if (careerEnd === "Now") {
+		careerEnd = "";
+	}
+	
+	return {
+		started: careerStart,
+		ended: careerEnd,
+	}
+  }
 
   const custom = {
     ...scrapeText(
@@ -229,16 +280,30 @@ module.exports = async ({
       "ethnicity",
       '[data-test="link_ethnicity"] .text-underline-always'
     ),
+	...scrapeText(
+      "tattoos",
+      '[data-test="p_has_tattoos"]'
+    ),
+	...scrapeText(
+      "piercings",
+      '[data-test="p_has_piercings"]'
+    ),
     ...getHeight(),
     ...getWeight(),
     ...getBirthplace(),
     ...getZodiac(),
+	...getMeasurements(),
+	...getCareer(),
   };
 
   const data = {
     ...getNationality(),
     ...getAge(),
     ...getAlias(),
+	...scrapeText(
+      "description",
+      '[data-test="p_additional_information"]'
+    ),
     ...(await getAvatar()),
     custom,
   };
