@@ -205,47 +205,70 @@ module.exports = async ({
     $log("Getting measurements...");
 
     const braSelector = $('[data-test="p-measurements"] a[href*="%5Bbra%5D"]');
-	let braSize = "";
-	let chestSize = "";
-	let cupSize = "";
-	if (!braSelector) {
-		braSize = "";
-		chestSize = "";
-		cupSize = "";
-	} else {
-		braSize = braSelector.length ? braSelector.attr("href").split("=").slice(-1)[0] : null;
-		chestSize = braSize.substr(0,2);
-		cupSize = braSize.substr(2,1);
-	}
-	
-	const waistSelector = $('[data-test="p-measurements"] a[href*="%5Bwaist%5D"]');
-	let waistSize = "";
-	if (!waistSelector) {
-		waistSize = "";
-	} else {
-		waistSize = waistSelector.length ? waistSelector.attr("href").split("=").slice(-1)[0].split(",").slice(-1)[0] : null;
-	}
-		
-	const hipSelector = $('[data-test="p-measurements"] a[href*="%5Bhip%5D"]');
-	let hipSize = "";
-	if (!hipSelector) {
-		hipSize = "";
-	} else {
-		hipSize = hipSelector.length ? hipSelector.attr("href").split("=").slice(-1)[0].split(",").slice(-1)[0] : null;
-	}
-	
-	const separator = "-";
-	
-	const fullMeasurements = braSize.concat(separator,waistSize,separator,hipSize);
-	
+    let braSize = "";
+    let chestSize = "";
+    let cupSize = "";
+    if (!braSelector) {
+      braSize = "";
+      chestSize = "";
+      cupSize = "";
+    } else {
+      braSize = braSelector.length
+        ? braSelector.attr("href").split("=").slice(-1)[0]
+        : null;
+      chestSize = braSize.substr(0, 2);
+      cupSize = braSize.substr(2, 1);
+    }
+
+    const waistSelector = $(
+      '[data-test="p-measurements"] a[href*="%5Bwaist%5D"]'
+    );
+    let waistSize = "";
+    if (!waistSelector) {
+      waistSize = "";
+    } else {
+      waistSize = waistSelector.length
+        ? waistSelector
+            .attr("href")
+            .split("=")
+            .slice(-1)[0]
+            .split(",")
+            .slice(-1)[0]
+        : null;
+    }
+
+    const hipSelector = $('[data-test="p-measurements"] a[href*="%5Bhip%5D"]');
+    let hipSize = "";
+    if (!hipSelector) {
+      hipSize = "";
+    } else {
+      hipSize = hipSelector.length
+        ? hipSelector
+            .attr("href")
+            .split("=")
+            .slice(-1)[0]
+            .split(",")
+            .slice(-1)[0]
+        : null;
+    }
+
+    const separator = "-";
+
+    const fullMeasurements = braSize.concat(
+      separator,
+      waistSize,
+      separator,
+      hipSize
+    );
+
     return {
-		bra: braSize,
-		chest: chestSize,
-		cupsize: cupSize,
-		waist: waistSize,
-		hips: hipSize,
-		measurements: fullMeasurements,
-	}
+      bra: braSize,
+      chest: chestSize,
+      cupsize: cupSize,
+      waist: waistSize,
+      hips: hipSize,
+      measurements: fullMeasurements,
+    };
   }
 
   function getAlias() {
@@ -263,27 +286,27 @@ module.exports = async ({
 
     return { aliases: alias_fin };
   }
-  
+
   function getCareer() {
     if (isBlacklisted("career")) return {};
     $log("Getting career info...");
 
     const careerSelector = $(".timeline-horizontal p.m-0");
-	if (!careerSelector) return {};
-	
-	let careerStart = $(careerSelector[0]).text();
-	if (careerStart === "Begin") {
-		careerStart = "";
-	}
-	let careerEnd = $(careerSelector[1]).text();
-	if (careerEnd === "Now") {
-		careerEnd = "";
-	}
-	
-	return {
-		started: careerStart,
-		ended: careerEnd,
-	}
+    if (!careerSelector) return {};
+
+    let careerStart = $(careerSelector[0]).text();
+    if (careerStart === "Begin") {
+      careerStart = "";
+    }
+    let careerEnd = $(careerSelector[1]).text();
+    if (careerEnd === "Now") {
+      careerEnd = "";
+    }
+
+    return {
+      started: careerStart,
+      ended: careerEnd,
+    };
   }
 
   const custom = {
@@ -299,30 +322,21 @@ module.exports = async ({
       "ethnicity",
       '[data-test="link_ethnicity"] .text-underline-always'
     ),
-	...scrapeText(
-      "tattoos",
-      '[data-test="p_has_tattoos"]'
-    ),
-	...scrapeText(
-      "piercings",
-      '[data-test="p_has_piercings"]'
-    ),
+    ...scrapeText("tattoos", '[data-test="p_has_tattoos"]'),
+    ...scrapeText("piercings", '[data-test="p_has_piercings"]'),
     ...getHeight(),
     ...getWeight(),
     ...getBirthplace(),
     ...getZodiac(),
-	...getMeasurements(),
-	...getCareer(),
+    ...getMeasurements(),
+    ...getCareer(),
   };
 
   const data = {
     ...getNationality(),
     ...getAge(),
     ...getAlias(),
-	...scrapeText(
-      "description",
-      '[data-test="p_additional_information"]'
-    ),
+    ...scrapeText("description", '[data-test="p_additional_information"]'),
     ...(await getAvatar()),
     custom,
   };
