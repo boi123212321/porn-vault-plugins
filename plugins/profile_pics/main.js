@@ -10,30 +10,42 @@ module.exports = async ({
   if (!actorName)
     $throw("Uh oh. You shouldn't use the plugin for this type of event");
 
-  const resolvedPath = $path.resolve(args.path);
+  const exts = [".jpg", ".png", ".jpeg", ".gif"];
 
-  if (!resolvedPath) $throw("Missing folder path!");
+  async function scanFolder(partial, prop) {
+    if (!partial) {
+      $log(`No ${prop} path defined`);
+      return {};
+    }
 
-  const exts = [".jpg", ".png"];
+    const path = $path.resolve(partial);
 
-  $log(`Trying to find picture of ${actorName} in ${resolvedPath}`);
+    $log(`Trying to find ${prop} pictures of ${actorName} in ${path}`);
 
-  const files = $fs.readdirSync(resolvedPath);
-  const hit = files.find((filename) =>
-    filename.toLowerCase().includes(actorName.toLowerCase())
-  );
-
-  if (hit && exts.some((ext) => hit.endsWith(ext))) {
-    $log(`Found picture for ${actorName}`);
-    const image = await $createLocalImage(
-      $path.join(resolvedPath, hit),
-      actorName,
-      true
+    const files = $fs.readdirSync(path);
+    const hit = files.find((name) =>
+      name.toLowerCase().includes(actorName.toLowerCase())
     );
-    return {
-      [args.target || thumbnail]: image,
-    };
+
+    if (hit && exts.some((ext) => hit.endsWith(ext))) {
+      $log(`Found ${prop} picture for ${actorName}`);
+      var image = await $createLocalImage(
+        $path.join(path, hit),
+        actorName,
+        true
+      );
+      return {
+        [prop]: image,
+      };
+    }
+
+    return {};
   }
-  $log(`Found no picture for ${actorName}`);
-  return {};
+
+  return {
+    ...(await scanFolder(args["path_thumb"], "thumbnail")),
+    ...(await scanFolder(args["path_alt"], "altThumbnail")),
+    ...(await scanFolder(args["path_avatar"], "avatar")),
+    ...(await scanFolder(args["path_hero"], "hero")),
+  };
 };

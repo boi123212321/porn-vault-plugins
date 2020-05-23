@@ -10,6 +10,9 @@ module.exports = {
   $createImage: () => {
     return Date.now().toString(36);
   },
+  $createLocalImage: () => {
+    return Date.now().toString(36);
+  },
   $moment: require("moment"),
   $inquirer: require("inquirer"),
   $fs: require("fs"),
