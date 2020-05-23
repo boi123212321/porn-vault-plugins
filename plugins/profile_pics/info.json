@@ -1,21 +1,32 @@
 {
   "name": "profile_pics",
-  "version": "1.0.0",
-  "authors": ["boi123212321"],
-  "description": "Find actor images based on local files",
+  "version": "1.1.0",
+  "authors": ["boi123212321","john4valor"],
+  "description": "Find actor images based on local files. GIF support.",
   "arguments": [
     {
-      "name": "path",
+      "name": "path_thumb",
       "type": "String",
       "required": true,
-      "description": "Folder to search images in"
+      "description": "Folder to search thumbnail images in"
     },
     {
-      "name": "target",
+      "name": "path_alt",
       "type": "String",
-      "required": false,
-      "default": "thumbnail",
-      "description": "Actor image to set (possible values: 'thumbnail', 'altThumbnail', 'avatar', 'hero')"
+      "required": true,
+      "description": "Folder to search alt thumbnail images in"
+    },
+    {
+      "name": "path_avatar",
+      "type": "String",
+      "required": true,
+      "description": "Folder to search avatar images in"
+    },
+    {
+      "name": "path_hero",
+      "type": "String",
+      "required": true,
+      "description": "Folder to search hero images in"
     }
   ]
 }

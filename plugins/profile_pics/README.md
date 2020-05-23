@@ -1,14 +1,16 @@
-## profile_pics 1.0.0
+## profile_pics 1.1.0
 
-by boi123212321
+by boi123212321,john4valor
 
-Find actor images based on local files
+Find actor images based on local files. GIF support.
 ### Arguments
 
-| Name   | Type   | Required | Description                                                                         |
-| ------ | ------ | -------- | ----------------------------------------------------------------------------------- |
-| path   | String | true     | Folder to search images in                                                          |
-| target | String | false    | Actor image to set (possible values: &#x27;thumbnail&#x27;, &#x27;altThumbnail&#x27;, &#x27;avatar&#x27;, &#x27;hero&#x27;) |
+| Name        | Type   | Required | Description                              |
+| ----------- | ------ | -------- | ---------------------------------------- |
+| path_thumb  | String | true     | Folder to search thumbnail images in     |
+| path_alt    | String | true     | Folder to search alt thumbnail images in |
+| path_avatar | String | true     | Folder to search avatar images in        |
+| path_hero   | String | true     | Folder to search hero images in          |
 ### Example installation
 
 ```json
