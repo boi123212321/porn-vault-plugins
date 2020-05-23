@@ -205,15 +205,34 @@ module.exports = async ({
     $log("Getting measurements...");
 
     const braSelector = $('[data-test="p-measurements"] a[href*="%5Bbra%5D"]');
-	const braSize = braSelector.attr("href").split("=").slice(-1)[0];
-	const chestSize = braSize.substr(0,2);
-	const cupSize = braSize.substr(2,1);
+	let braSize = "";
+	let chestSize = "";
+	let cupSize = "";
+	if (!braSelector) {
+		braSize = "";
+		chestSize = "";
+		cupSize = "";
+	} else {
+		braSize = braSelector.length ? braSelector.attr("href").split("=").slice(-1)[0] : null;
+		chestSize = braSize.substr(0,2);
+		cupSize = braSize.substr(2,1);
+	}
 	
 	const waistSelector = $('[data-test="p-measurements"] a[href*="%5Bwaist%5D"]');
-	const waistSize = waistSelector.attr("href").split("=").slice(-1)[0].split(",").slice(-1)[0];
-	
+	let waistSize = "";
+	if (!waistSelector) {
+		waistSize = "";
+	} else {
+		waistSize = waistSelector.length ? waistSelector.attr("href").split("=").slice(-1)[0].split(",").slice(-1)[0] : null;
+	}
+		
 	const hipSelector = $('[data-test="p-measurements"] a[href*="%5Bhip%5D"]');
-	const hipSize = hipSelector.attr("href").split("=").slice(-1)[0].split(",").slice(-1)[0];
+	let hipSize = "";
+	if (!hipSelector) {
+		hipSize = "";
+	} else {
+		hipSize = hipSelector.length ? hipSelector.attr("href").split("=").slice(-1)[0].split(",").slice(-1)[0] : null;
+	}
 	
 	const separator = "-";
 	
