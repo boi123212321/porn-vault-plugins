@@ -156,6 +156,36 @@ module.exports = async ({
       }
     }
   }
+  
+  function getBirthplace() {
+    if (isBlacklisted("birthplace")) return {};
+    $log("Getting birthplace...");
+
+    const citySelector = $('[data-test="section-personal-information"] a[href*="placeOfBirth"]');
+	let cityName = "";
+	if (citySelector) {
+		cityName = citySelector.length ? $(citySelector).attr("href").split("=").slice(-1)[0] : null;
+	}
+	
+	const stateSelector = $('[data-test="section-personal-information"] a[href*="province"]');
+	
+	let stateName = "";
+	if (stateSelector) {
+		stateName = stateSelector.length ? $(stateSelector).attr("href").split("=").slice(-1)[0] : null;
+	}
+	
+	if (cityName && stateName) {
+		return { birthplace: [cityName, stateName].join(", ") };
+	}
+	
+	if (cityName) {
+		return { birthplace: cityName };
+	}
+	
+	if (stateName) {
+		return { birthplace: stateName };
+	}
+  }
 
   function scrapeText(prop, selector) {
     if (isBlacklisted(prop)) return {};
