@@ -125,37 +125,6 @@ module.exports = async ({
     const zodiac = zodiacText.split(" (")[0];
     return { zodiac };
   }
-
-  function getBirthplace() {
-    if (isBlacklisted("birthplace")) return {};
-    $log("Getting birthplace...");
-
-    const selector = $(
-      '[data-test="section-personal-information"] a[href*="placeOfBirth"]'
-    );
-    const cityName = selector.length
-      ? $(selector).attr("href").split("=").slice(-1)[0]
-      : null;
-
-    if (!cityName) {
-      $log("No birthplace found");
-      return {};
-    } else {
-      const stateSelector = $(
-        '[data-test="section-personal-information"] a[href*="province"]'
-      );
-      const stateName = stateSelector.length
-        ? $(stateSelector).attr("href").split("=").slice(-1)[0]
-        : null;
-      if (!stateName) {
-        $log("No birth province found, just city!");
-        return { birthplace: cityName };
-      } else {
-        let bplace = cityName + ", " + stateName.split("-")[0].trim();
-        return { birthplace: bplace };
-      }
-    }
-  }
   
   function getBirthplace() {
     if (isBlacklisted("birthplace")) return {};
