@@ -2,13 +2,16 @@ function lowercase(str) {
   return str.toLowerCase();
 }
 
+// NIST Metric to Imperial conversion chart:
+// https://www.nist.gov/pml/weights-and-measures/approximate-conversions-metric-us-customary-measures
+
 function cmToFt(cm) {
-  cm *= 0.033;
+  cm *= 0.0328;
   return Math.round((cm + Number.EPSILON) * 100) / 100;
 }
 
 function kgToLbs(kg) {
-  kg *= 2.2;
+  kg *= 2.20;
   return Math.round((kg + Number.EPSILON) * 100) / 100;
 }
 
@@ -208,40 +211,32 @@ module.exports = async ({
     let braSize = "";
     let chestSize = "";
     let cupSize = "";
-    if (!braSelector) {
-      braSize = "";
-      chestSize = "";
-      cupSize = "";
-    } else {
+    if (braSelector) {
       braSize = braSelector.length
         ? braSelector.attr("href").split("=").slice(-1)[0]
         : null;
+	}
+	if (braSize) {
       chestSize = braSize.substr(0, 2);
       cupSize = braSize.substr(2, 1);
     }
 
-    const waistSelector = $(
-      '[data-test="p-measurements"] a[href*="%5Bwaist%5D"]'
-    );
+    const waistSelector = $('[data-test="p-measurements"] a[href*="%5Bwaist%5D"]');
     let waistSize = "";
-    if (!waistSelector) {
-      waistSize = "";
-    } else {
+    if (waistSelector) {
       waistSize = waistSelector.length
-        ? waistSelector
-            .attr("href")
-            .split("=")
-            .slice(-1)[0]
-            .split(",")
-            .slice(-1)[0]
-        : null;
+		? waistSelector
+			.attr("href")
+			.split("=")
+			.slice(-1)[0]
+			.split(",")
+			.slice(-1)[0]
+		: null;
     }
 
     const hipSelector = $('[data-test="p-measurements"] a[href*="%5Bhip%5D"]');
     let hipSize = "";
-    if (!hipSelector) {
-      hipSize = "";
-    } else {
+    if (hipSelector) {
       hipSize = hipSelector.length
         ? hipSelector
             .attr("href")
@@ -252,14 +247,7 @@ module.exports = async ({
         : null;
     }
 
-    const separator = "-";
-
-    const fullMeasurements = braSize.concat(
-      separator,
-      waistSize,
-      separator,
-      hipSize
-    );
+    const fullMeasurements = [braSize, waistSize, hipSize].join("-");
 
     return {
       bra: braSize,

@@ -1,6 +1,6 @@
 {
   "name": "freeones",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "authors": ["boi123212321","john4valor"],
   "description": "Scrape data from freeones.xxx. You do not need to have all possible Custom Fields. Custom Fields can only be named as follows (not case sensitive): Started, Ended, Hair Color, Eye Color, Ethnicity, Height, Weight, Birthplace, Zodiac, Bra, Chest, Cupsize, Waist, Hips, Measurements, Tattoos, Piercings",
   "arguments": [
@@ -16,7 +16,7 @@
       "type": "Array<String>",
       "required": false,
       "default": [],
-      "description": "Array of data fields to omit (possible values: 'started', 'ended', 'description', 'tattoos', 'piercings', 'measurements', 'zodiac', 'aliases', 'height', 'weight', 'avatar', 'bornOn', 'labels', 'hair color', 'eye color', 'ethnicity')"
+      "description": "Array of data fields to omit (possible values: 'career', 'description', 'tattoos', 'piercings', 'measurements', 'zodiac', 'aliases', 'height', 'weight', 'avatar', 'bornOn', 'labels', 'hair color', 'eye color', 'ethnicity')"
     },
 	{
       "name": "useImperial",
