@@ -69,6 +69,8 @@ module.exports = async (ctx) => {
   if (!firstResult) $throw(`${actorName} not found!`);
 
   const href = firstResult.attr("href");
+  // we found links, but there were no actor links before the video links
+  if (!href) $throw(`${actorName} not found!`);
 
   let html;
   try {
@@ -106,9 +108,9 @@ module.exports = async (ctx) => {
     if (!selector) return {};
 
     const rawHeight = $(selector).text();
-    const cm = rawHeight.match(/\d+cm/)[0];
+    const cm = rawHeight.match(/(\d+)cm/);
     if (!cm) return {};
-    const height = parseInt(cm.replace("cm", ""));
+    const height = parseInt(cm[1]);
     if (!useImperial) return { height };
 
     // Convert to imperial
@@ -123,9 +125,9 @@ module.exports = async (ctx) => {
     if (!selector) return {};
 
     const rawWeight = $(selector).text();
-    const kg = rawWeight.match(/\d+kg/)[0];
+    const kg = rawWeight.match(/(\d+)kg/);
     if (!kg) return {};
-    const weight = parseInt(kg.replace("kg", ""));
+    const weight = parseInt(kg[1]);
     if (!useImperial) return { weight };
 
     // Convert to imperial
@@ -187,6 +189,7 @@ module.exports = async (ctx) => {
     if (!imgEl) return {};
 
     const url = $(imgEl).attr("src");
+    if (!url) return {};
     const imgId = await $createImage(url, `${actorName} (avatar)`);
 
     if (!useAvatarAsThumbnail) {
@@ -207,6 +210,7 @@ module.exports = async (ctx) => {
     if (!aTag) return {};
 
     const href = $(aTag).attr("href");
+    if (!href) return {};
     const yyyymmdd = href.match(/\d\d\d\d-\d\d-\d\d/);
 
     if (yyyymmdd && yyyymmdd.length) {
