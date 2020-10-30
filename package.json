@@ -36,7 +36,7 @@
     "ts-node": "^9.0.0",
     "typescript": "^3.8.3",
     "yaml": "^1.10.0",
-    "zod": "^1.11.9"
+    "zod": "^1.11.10"
   },
   "scripts": {
     "doc": "cd md_gen && npm start",
