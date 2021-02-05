@@ -19,7 +19,7 @@
     "@types/cheerio": "^0.22.23",
     "@types/fluent-ffmpeg": "^2.1.16",
     "@types/inquirer": "^7.3.1",
-    "@types/node": "^14.14.20",
+    "@types/node": "^14.14.25",
     "@types/semver": "^7.3.4",
     "@types/winston": "^2.4.4",
     "@types/yaml": "^1.9.7",
