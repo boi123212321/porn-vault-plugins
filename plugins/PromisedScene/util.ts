@@ -248,7 +248,7 @@ export const normalizeSceneResultData = (sceneData: SceneResult.SceneData): Scen
     result.labels = sceneData.tags.map((l) => l.tag);
   }
 
-  if (sceneData.background.large && !sceneData.background.large.includes("default.png")) {
+  if (sceneData.background.large && !sceneData.background.large.includes("default.png") || !sceneData.background.large.includes("default1.png")) {
     result.thumbnail = sceneData.background.large;
   }
 
