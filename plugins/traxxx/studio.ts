@@ -7,7 +7,7 @@ import {
   EntityPreference,
   slugify,
   suppressProp,
-  validateArgs,
+  validateStudioArgs,
 } from "./util";
 
 export class ChannelExtractor {
@@ -129,7 +129,7 @@ export class ChannelExtractor {
       return {};
     }
 
-    const { logo } = buildImageUrls(entity);
+    const { logo } = buildImageUrls(entity, this.ctx.args);
 
     if (!logo) {
       return {};
@@ -223,7 +223,7 @@ export default async (initialContext: MyStudioContext): Promise<StudioOutput> =>
   const { $logger, $formatMessage, $throw, studioName } = initialContext;
 
   try {
-    const validatedArgs = validateArgs(initialContext);
+    const validatedArgs = validateStudioArgs(initialContext);
     if (validatedArgs) {
       initialContext.args = validatedArgs;
     }

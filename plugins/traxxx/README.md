@@ -12,6 +12,22 @@ Scrape data from traxxx
 
 This plugin retrieves data from Traxxx.
 
+### Actors
+
+* The plugin returns the following properties:
+    * `custom` : custom fields:
+      * `gender` : (string) the actor's gender
+      * `cup size` : (string) the actor's cup size
+      * `eye color` : (string) the actor's eye color
+      * `hair color` : (string) the actor's hair color
+      * `natural boobs` : (boolean) If the actor has natural boobs
+      * `measurements` : (string) {bust}{cup}-{waist}-{hip}
+      * `height` : (number) in cm
+      * `weight` : (number) in kg
+      * `tattoos` : (string) description of the tattos 
+      * `piercings` : (string) description of the piercings
+      * `ethnicity` : (string) description of the ethnicity
+
 ### Studios
 
 * The plugin returns the following properties:

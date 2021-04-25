@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "authors": ["leadwolf"],
   "description": "Scrape data from traxxx",
-  "pluginEvents": ["studioCreated", "studioCustom"],
+  "pluginEvents": ["actorCreated", "actorCustom", "sceneCreated", "sceneCustom", "studioCreated", "studioCustom"],
   "arguments": [
     {
       "name": "dry",
@@ -11,6 +11,76 @@
       "required": false,
       "default": false,
       "description": "Whether to commit data changes"
+    },
+    {
+      "name": "actors",
+      "type": "Object",
+      "required": false,
+      "default": {},
+      "description": "Configuration for actor events"
+    },
+    {
+      "name": "actors.missingLabel",
+      "type": "String",
+      "required": false,
+      "default": "",
+      "description": "When the actor is not found on traxx the defined label is added to the actor."
+    },
+    {
+      "name": "server",
+      "type": "Object",
+      "required": false,
+      "default": {},
+      "description": "Configuration for the traxx server to use."
+    },
+    {
+      "name": "server.URL",
+      "type": "String",
+      "required": false,
+      "default": "",
+      "description": "The traxx url to use eg. http://localhost:5000'. If none is specified then 'https://traxxx.me' is used."
+    },
+    {
+      "name": "server.limit",
+      "type": "Number",
+      "required": false,
+      "default": "",
+      "description": "The number of results returned from the traxx api. Reducing this will reduce the load on the traxxx server."
+    },
+    {
+      "name": "server.mediaLocation",
+      "type": "String",
+      "required": false,
+      "default": "",
+      "description": "The traxx media location when traxx is running locally, eg '/media/'. The plugin will then use the local file instead of downloading a copy."
+    },
+    {
+      "name": "scenes",
+      "type": "Object",
+      "required": false,
+      "default": {},
+      "description": "Configuration for scene events"
+    },
+    {
+      "name": "scenes.matchActors",
+      "type": "Boolean",
+      "required": false,
+      "default": false,
+      "description": "When the scene results are being validated, if any other plugin run before traxxx resolves a list of actors then this is used when matching the traxx scene. If the traxx scene does not contain all of the resolved actor list then it is not used."
+    },
+    {
+      "name": "scenes.matchStudio",
+      "type": "Boolean",
+      "required": false,
+      "default": false,
+      "description": "When the scene results are being validated, if any other plugin run before traxxx resolves the studio name then this is used when matching the traxx scene. If the traxx scene is for a different studio then it is not used."
+    },
+    {
+      "name": "scenes.missingLabel",
+      "type": "String",
+      "required": false,
+      "default": "",
+      "description": "When the scene is not found on traxx the defined label is added to the actor."
     },
     {
       "name": "studios",
