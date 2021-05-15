@@ -252,7 +252,7 @@ export const normalizeSceneResultData = (sceneData: SceneResult.SceneData): Scen
     result.thumbnail = sceneData.background.large;
   }
 
-  if (sceneData.performers) {
+  if (sceneData.performers?.length) {
     result.actors = sceneData.performers.map((p) => p.name);
   }
 
