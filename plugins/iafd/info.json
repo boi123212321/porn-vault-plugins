@@ -2,8 +2,8 @@
   "name": "iafd",
   "version": "0.1.0",
   "authors": ["ArcadianCdr"],
-  "description": "Scrapes scene data from the Internet Adult Film Database (iafd). Supports single-scene and multi-scene titles (movies)",
-  "pluginEvents": ["sceneCreated", "sceneCustom"],
+  "description": "Scrapes scene data from the Internet Adult Film Database (iafd). Ideal for multi-scene titles (scenes from a movie), but also works for standalone scenes.",
+  "events": ["sceneCreated", "sceneCustom"],
   "arguments": [
     {
       "name": "dry",
