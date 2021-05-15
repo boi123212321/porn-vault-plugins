@@ -1,6 +1,5 @@
 import axios from "axios";
 import boxen from "boxen";
-import cheerio from "cheerio";
 import ffmpeg from "fluent-ffmpeg";
 import fs, { readdir, stat } from "fs";
 import inquirer from "inquirer";
@@ -189,7 +188,7 @@ const context: Context | SceneContext | ActorContext | MovieContext | StudioCont
   // Libraries
   $axios: axios,
   $boxen: boxen,
-  $cheerio: cheerio,
+  // $cheerio: cheerio,
   $ffmpeg: ffmpeg,
   $fs: fs,
   $inquirer: inquirer,

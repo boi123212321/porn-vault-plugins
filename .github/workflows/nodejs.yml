@@ -6,7 +6,7 @@ name: Node.js CI
 on:
   push:
     branches: [master]
-  pull_request:
+  pull_request_target:
     branches: "**"
 
 jobs:
@@ -23,6 +23,8 @@ jobs:
       - run: npm run check-info
       - run: npm run lint
       - run: npm run coverage
+        env:
+          TPDB_API_KEY: ${{ secrets.TPDB_API_KEY }}
       - uses: codecov/codecov-action@v1
         with:
           file: "./coverage/coverage-final.json"

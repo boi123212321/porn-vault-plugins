@@ -5,10 +5,10 @@ const { createPluginRunner } = require("../../../context");
 const runPlugin = createPluginRunner("resolution", plugin);
 
 describe("resolution", () => {
-  it("Should fail", () => {
+  it("Should fail", async () => {
     let errord = false;
     try {
-      runPlugin(context);
+      await runPlugin(context);
     } catch (error) {
       expect(error.message).to.equal("Uh oh. You shouldn't use the plugin for this type of event");
       errord = true;
@@ -16,8 +16,8 @@ describe("resolution", () => {
     expect(errord).to.be.true;
   });
 
-  it("Should find 720p", () => {
-    const result = runPlugin({
+  it("Should find 720p", async () => {
+    const result = await runPlugin({
       scenePath: "test",
       scene: {
         meta: {
@@ -32,8 +32,8 @@ describe("resolution", () => {
     });
   });
 
-  it("Should find 1080p from path", () => {
-    const result = runPlugin({
+  it("Should find 1080p from path", async () => {
+    const result = await runPlugin({
       scenePath: "/videos/Avi Love [1080p].mp4",
       scene: {
         meta: {},
@@ -44,8 +44,8 @@ describe("resolution", () => {
     });
   });
 
-  it("Should not find 800p from path", () => {
-    const result = runPlugin({
+  it("Should not find 800p from path", async () => {
+    const result = await runPlugin({
       scenePath: "/videos/Avi Love [800p].mp4",
       scene: {
         meta: {},
@@ -54,8 +54,8 @@ describe("resolution", () => {
     expect(result).to.deep.equal({});
   });
 
-  it("Should find 800p from path", () => {
-    const result = runPlugin({
+  it("Should find 800p from path", async () => {
+    const result = await runPlugin({
       scenePath: "/videos/Avi Love [800p].mp4",
       scene: {
         meta: {},
@@ -69,8 +69,8 @@ describe("resolution", () => {
     });
   });
 
-  it("Should not find 1080p from path", () => {
-    const result = runPlugin({
+  it("Should not find 1080p from path", async () => {
+    const result = await runPlugin({
       scenePath: "/videos/Avi Love [1080p].mp4",
       scene: {
         meta: {},
@@ -82,8 +82,8 @@ describe("resolution", () => {
     expect(result).to.deep.equal({});
   });
 
-  it("Should find 720p and merge", () => {
-    const result = runPlugin({
+  it("Should find 720p and merge", async () => {
+    const result = await runPlugin({
       scenePath: "test",
       scene: {
         meta: {
@@ -101,8 +101,8 @@ describe("resolution", () => {
     });
   });
 
-  it("Should find 800p from path and merge", () => {
-    const result = runPlugin({
+  it("Should find 800p from path and merge", async () => {
+    const result = await runPlugin({
       scenePath: "/videos/Avi Love [800p].mp4",
       scene: {
         meta: {},
@@ -119,10 +119,10 @@ describe("resolution", () => {
     });
   });
 
-  it("Should not return anything", () => {
+  it("Should not return anything", async () => {
     let errord = false;
     try {
-      runPlugin({
+      await runPlugin({
         scenePath: "/videos/Avi Love [800p].mp4",
         scene: {
           meta: {},

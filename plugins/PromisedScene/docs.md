@@ -4,6 +4,8 @@ The plugin will search TPDB with one of scene's actors, the studio (these two mu
 With the results from TPDB, it then tries to match their titles to the title of the scene. If a match is found, it will be returned.  
 If no match is found, and `manualTouch` is enabled, you will be able to interactively search or enter the scene's details, until you confirm the result or quit the process.
 
+🚨 As of 15/04/2021, an API key is required. See `args.apiKey`
+
 ### Tips
 
 - When running without `manualTouch`, but you still want to search TPDB with a specific string, you can enable `useTitleInSearch`, change the scene's name and then run the plugin.

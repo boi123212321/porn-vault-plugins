@@ -7,6 +7,15 @@ function createCommonjsModule(fn) {
 	return fn(module, module.exports), module.exports;
 }
 
+var plugin = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.applyMetadata = void 0;
+function applyMetadata(handler, info) {
+    handler.info = info;
+}
+exports.applyMetadata = applyMetadata;
+});
+
 var api = createCommonjsModule(function (module, exports) {
 var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -416,6 +425,108 @@ exports.default = (initialContext) => __awaiter(void 0, void 0, void 0, function
 });
 });
 
+var name = "traxxx";
+var version = "0.2.0";
+var authors = [
+	"leadwolf"
+];
+var description = "Scrape data from traxxx";
+var events = [
+	"studioCreated",
+	"studioCustom"
+];
+var require$$1 = {
+	name: name,
+	version: version,
+	authors: authors,
+	description: description,
+	events: events,
+	"arguments": [
+	{
+		name: "dry",
+		type: "Boolean",
+		required: false,
+		"default": false,
+		description: "Whether to commit data changes"
+	},
+	{
+		name: "studios",
+		type: "Object",
+		required: false,
+		"default": {
+		},
+		description: "Configuration for studio events"
+	},
+	{
+		name: "studios.channelPriority",
+		type: "Boolean",
+		required: false,
+		"default": true,
+		description: "When the studio type is unknown, and the name corresponds to both a channel & a network, whether to prefer the channel or the network"
+	},
+	{
+		name: "studios.uniqueNames",
+		type: "Boolean",
+		required: false,
+		"default": true,
+		description: "When the studio name corresponds to both a channel & a network, whether to append suffixes to the name to avoid conflicts. The suffixes obviously cannot be the same. If the studio name already has a suffix, it will be kept, even if this setting is false"
+	},
+	{
+		name: "studios.channelSuffix",
+		type: "String",
+		required: false,
+		"default": "",
+		description: "When `studios.uniqueNames` is active and returning a **channel** name that also corresponds to a network, will be appended to the name. WARNING: spaces between the name & suffix will not be automatically added"
+	},
+	{
+		name: "studios.networkSuffix",
+		type: "String",
+		required: false,
+		"default": " (Network)",
+		description: "When `studios.uniqueNames` is active and returning a **network** name that also corresponds to a channel, will be appended to the name. WARNING: spaces between the name & suffix will not be automatically added"
+	},
+	{
+		name: "studios.mergeAliases",
+		type: "Boolean",
+		required: false,
+		"default": true,
+		description: "When the previous plugin returned aliases, if our plugins aliases should be merged with them or override them"
+	},
+	{
+		name: "studios.whitelist",
+		type: "String[]",
+		required: false,
+		"default": [
+		],
+		description: "Array of data fields to pick. When non empty, only the fields listed will be returned. Possible values: [`'name', 'description', 'thumbnail', 'aliases', 'parent'`]."
+	},
+	{
+		name: "studios.blacklist",
+		type: "String[]",
+		required: false,
+		"default": [
+		],
+		description: "Array of data fields to omit. Used **only** when `whitelist` is empty. When non empty, only the fields **not** listed will be returned. (for values see `whitelist`)"
+	},
+	{
+		name: "studios.whitelistOverride",
+		type: "String[]",
+		required: false,
+		"default": [
+		],
+		description: "Array of data fields to pick, when values already exist from a piped plugin. Acts exactly the same as `whitelist`, but used **only** when the field has been returned by a previous plugin. (**WARNING**: not the same thing as existing values of the scene) (for values see `whitelist`)"
+	},
+	{
+		name: "studios.blacklistOverride",
+		type: "String[]",
+		required: false,
+		"default": [
+		],
+		description: "Array of data fields to omit, when values already exist from a a piped plugin. Acts exactly the same as `blacklist`, but used **only** when the field has been returned by a previous plugin.  (**WARNING**: not the same thing as existing values of the scene) (for values see `whitelist`)"
+	}
+]
+};
+
 var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -429,8 +540,10 @@ var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || func
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
+
 const studio_1 = __importDefault(studio);
-var main = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+const info_json_1 = __importDefault(require$$1);
+const handler = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     if (!ctx.args || typeof ctx.args !== "object") {
         ctx.$throw(`Missing args, cannot run plugin`);
         return {};
@@ -441,5 +554,10 @@ var main = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     ctx.$throw("Uh oh. You shouldn't use the plugin for this type of event");
     return {};
 });
+handler.requiredVersion = ">=0.27.0";
+plugin.applyMetadata(handler, info_json_1.default);
+var main = handler;
+var _default = handler;
+main.default = _default;
 
-module.exports = main;
+module.exports = _default;

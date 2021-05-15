@@ -1,9 +1,9 @@
 {
   "name": "legalporno",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "authors": ["boi123212321"],
   "description": "Scrape Legalporno/Analvids scene data",
-  "pluginEvents": ["sceneCreated", "sceneCustom"],
+  "events": ["sceneCreated", "sceneCustom"],
   "arguments": [
     {
       "name": "deep",

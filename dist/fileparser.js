@@ -7,6 +7,15 @@ function createCommonjsModule(fn) {
 	return fn(module, module.exports), module.exports;
 }
 
+var plugin = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.applyMetadata = void 0;
+function applyMetadata(handler, info) {
+    handler.info = info;
+}
+exports.applyMetadata = applyMetadata;
+});
+
 var utils = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.matchElement = exports.dateToTimestamp = void 0;
@@ -206,6 +215,40 @@ function isValidConfig(ctx, val) {
 exports.isValidConfig = isValidConfig;
 });
 
+var name = "fileparser";
+var version = "0.2.0";
+var authors = [
+	"arcadianCdr"
+];
+var description = "Automatically extracts scene details from your library's file and directory structure. Supported properties: release date, studio, name, actors, movie and labels.";
+var events = [
+	"sceneCreated",
+	"sceneCustom"
+];
+var require$$0 = {
+	name: name,
+	version: version,
+	authors: authors,
+	description: description,
+	events: events,
+	"arguments": [
+	{
+		name: "dry",
+		type: "Boolean",
+		required: false,
+		"default": false,
+		description: "Whether to commit data changes."
+	},
+	{
+		name: "parseDate",
+		type: "Boolean",
+		required: false,
+		"default": true,
+		description: "whether to parse release dates. Defaults to true."
+	}
+]
+};
+
 var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -215,10 +258,15 @@ var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisAr
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 
 
 
-var main = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+
+const info_json_1 = __importDefault(require$$0);
+const handler = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     const { args, scenePath, $logger, $path, $throw } = ctx;
     if (!scenePath)
         $throw("Uh oh. You shouldn't use the plugin for this type of event");
@@ -308,5 +356,10 @@ var main = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
         return sceneOutput;
     }
 });
+handler.requiredVersion = ">=0.27.0";
+plugin.applyMetadata(handler, info_json_1.default);
+var main = handler;
+var _default = handler;
+main.default = _default;
 
-module.exports = main;
+module.exports = _default;

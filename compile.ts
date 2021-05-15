@@ -1,6 +1,7 @@
 import * as rollup from "rollup";
 import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
+import jsonResolve from "@rollup/plugin-json";
 
 import { readdirSync } from "fs";
 import { resolve } from "path";
@@ -17,7 +18,7 @@ import { resolve } from "path";
 
     const bundle = await rollup.rollup({
       input,
-      plugins: [/*typescript(), */ nodeResolve(), commonjs()],
+      plugins: [nodeResolve(), commonjs(), jsonResolve()],
     });
 
     await bundle.write({

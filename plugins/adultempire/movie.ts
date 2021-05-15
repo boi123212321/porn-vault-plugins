@@ -1,3 +1,5 @@
+import $cheerio from "cheerio";
+
 import { MovieContext, MovieOutput } from "../../types/movie";
 import { Context } from "../../types/plugin";
 
@@ -8,7 +10,7 @@ interface MyContext extends MovieContext {
 }
 
 async function searchForMovie(
-  { $cheerio, $axios }: { $cheerio: Context["$cheerio"]; $axios: Context["$axios"] },
+  { $axios }: { $axios: Context["$axios"] },
   name: string
 ): Promise<string | false> {
   const url = `https://www.adultempire.com/allsearch/search?q=${name}`;
@@ -33,7 +35,7 @@ async function urlAvailable({ $axios }: MyContext, url: string) {
 
 export default async function (ctx: MyContext): Promise<MovieOutput> {
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { args, $moment, $axios, $cheerio, $logger, $formatMessage, movieName, $createImage } = ctx;
+  const { args, $moment, $axios, $logger, $formatMessage, movieName, $createImage } = ctx;
 
   const name = movieName
     .replace(/[#&]/g, "")

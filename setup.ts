@@ -51,7 +51,7 @@ function pluginExists(name: string): boolean {
     version: "0.0.1",
     authors: [result.author],
     description: result.description,
-    pluginEvents: [],
+    events: [],
   };
   const infoJsonPath = resolve(pluginFolder, "info.json");
   writeFileSync(infoJsonPath, JSON.stringify(infoJson, null, 2));
@@ -60,13 +60,24 @@ function pluginExists(name: string): boolean {
 
   writeFileSync(
     pluginEntryFile,
-    `import { Context } from "../../types/plugin";
-    
-module.exports = async (ctx: Context /* adjust based on events */): Promise<any /* adjust based on output */> => {
+    `import { applyMetadata, Plugin } from "../../types/plugin";
+import { Context } from "../../types/plugin";
+
+import info from "./info.json";
+
+const handler: Plugin<Context /* adjust based on events */, any /* adjust based on output */> = async (ctx) => {
   // TODO: implement
   ctx.$log("Hello world from ${result.name}");
   return {};
 };
+
+handler.requiredVersion = ">=0.28"; // TODO: adjust version requirement here
+
+applyMetadata(handler, info);
+
+module.exports = handler;
+
+export default handler;
   `
   );
 

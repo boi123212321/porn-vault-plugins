@@ -1,4 +1,7 @@
+import { applyMetadata, Plugin } from "../../types/plugin";
 import { SceneContext } from "../../types/scene";
+
+import info from "./info.json";
 
 interface MyContext {
   args: {
@@ -6,7 +9,9 @@ interface MyContext {
   };
 }
 
-module.exports = ({ args, $throw, data, scenePath, scene }: SceneContext & MyContext) => {
+const handler: Plugin<SceneContext & MyContext, any> = async (ctx) => {
+  const { args, $throw, data, scenePath, scene } = ctx;
+
   if (!scenePath) {
     return $throw("Uh oh. You shouldn't use the plugin for this type of event");
   }
@@ -47,3 +52,11 @@ module.exports = ({ args, $throw, data, scenePath, scene }: SceneContext & MyCon
 
   return {};
 };
+
+handler.requiredVersion = ">=0.27.0";
+
+applyMetadata(handler, info);
+
+module.exports = handler;
+
+export default handler;

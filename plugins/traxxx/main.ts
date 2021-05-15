@@ -1,8 +1,12 @@
+import { applyMetadata, Plugin } from "../../types/plugin";
 import { StudioOutput } from "../../types/studio";
+
 import studioHandler from "./studio";
 import { MyStudioContext } from "./types";
 
-module.exports = async (ctx: MyStudioContext): Promise<StudioOutput> => {
+import info from "./info.json";
+
+const handler: Plugin<MyStudioContext, StudioOutput> = async (ctx) => {
   if (!ctx.args || typeof ctx.args !== "object") {
     ctx.$throw(`Missing args, cannot run plugin`);
     return {};
@@ -15,3 +19,11 @@ module.exports = async (ctx: MyStudioContext): Promise<StudioOutput> => {
   ctx.$throw("Uh oh. You shouldn't use the plugin for this type of event");
   return {};
 };
+
+handler.requiredVersion = ">=0.27.0";
+
+applyMetadata(handler, info);
+
+module.exports = handler;
+
+export default handler;

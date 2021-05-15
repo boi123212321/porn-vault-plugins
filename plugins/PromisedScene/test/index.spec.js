@@ -11,7 +11,7 @@ const mockContext = {
 
 const runPlugin = createPluginRunner("PromisedScene", plugin);
 
-describe.skip("PromisedScene", () => {
+describe("PromisedScene", () => {
   describe("Handle all of the errors properly.", () => {
     it("Should fail with error:  Plugin used for unsupported event", async () => {
       let errord = false;

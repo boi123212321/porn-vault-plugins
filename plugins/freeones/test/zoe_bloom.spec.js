@@ -33,6 +33,8 @@ describe("freeones", () => {
       "cup size": "A",
       "bra size": "32A",
       "bust size": 32,
+      started: 2018,
+
       gender: "Female",
       sex: "Female",
       piercings: "Left Nostril",
@@ -64,6 +66,7 @@ describe("freeones", () => {
       weight: 50,
       birthplace: "Pittsburgh, PA",
       zodiac: "Aries",
+      started: 2018,
       gender: "Female",
       sex: "Female",
       piercings: "Left Nostril",

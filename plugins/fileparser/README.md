@@ -1,4 +1,4 @@
-## fileparser 0.1.3
+## fileparser 0.2.0
 
 by arcadianCdr
 

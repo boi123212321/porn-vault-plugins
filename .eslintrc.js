@@ -11,7 +11,7 @@ module.exports = {
     /* "plugin:prettier/recommended",
     "plugin:mocha/recommended", */
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier/@typescript-eslint",
+    "prettier",
     "plugin:prettier/recommended",
   ],
   globals: {

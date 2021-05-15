@@ -1,12 +1,9 @@
 {
   "name": "resolution",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "authors": ["boi123212321"],
   "description": "Add resolution labels to a scene",
-  "pluginEvents": [
-    "sceneCreated",
-    "sceneCustom"
-  ],
+  "events": ["sceneCreated", "sceneCustom"],
   "arguments": [
     {
       "name": "resolutions",

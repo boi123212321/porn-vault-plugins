@@ -11,6 +11,7 @@ See the [plugin_template.md](https://github.com/boi123212321/porn-vault-plugins/
 ### `info.json`
 
 The `info.json` file should follow this schema:
+
 ```typescript
 interface PluginArg {
   name: string;
@@ -32,10 +33,11 @@ interface PluginInfo {
   version: string;
   authors: string[];
   description: string;
-  pluginEvents: PluginEvents[];
+  events: PluginEvents[];
   arguments: PluginArg[];
 }
 ```
 
 ### `docs.md`
+
 Whatever is in this file will be inserted into the `README.md`

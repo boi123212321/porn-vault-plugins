@@ -1,0 +1,98 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.24
+    - 14.14.25
+    - 14.14.28
+    - 14.14.30
+    - 14.14.32
+    - 14.14.33
+    - 14.14.34
+    - 14.14.35
+    - 14.14.36
+    - 14.14.37
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: "@types/semver"
+    versions:
+    - 7.3.5
+  - dependency-name: zod
+    versions:
+    - 1.11.12
+    - 1.11.13
+    - 1.11.16
+  - dependency-name: eslint-config-prettier
+    versions:
+    - 8.0.0
+    - 8.1.0
+    - 8.2.0
+  - dependency-name: rollup
+    versions:
+    - 2.41.0
+    - 2.45.0
+    - 2.45.1
+  - dependency-name: cheerio
+    versions:
+    - 1.0.0-rc.6
+  - dependency-name: typescript
+    versions:
+    - 4.1.4
+    - 4.1.5
+    - 4.2.3
+    - 4.2.4
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+    - 4.0.3
+  - dependency-name: boxen
+    versions:
+    - 5.0.1
+  - dependency-name: "@types/fluent-ffmpeg"
+    versions:
+    - 2.1.17
+  - dependency-name: "@rollup/plugin-node-resolve"
+    versions:
+    - 11.2.1
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.15.0
+    - 4.15.1
+    - 4.15.2
+    - 4.19.0
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.15.1
+    - 4.19.0
+  - dependency-name: "@types/cheerio"
+    versions:
+    - 0.22.24
+    - 0.22.26
+    - 0.22.27
+    - 0.22.28
+  - dependency-name: mocha
+    versions:
+    - 8.3.1
+    - 8.3.2
+  - dependency-name: chai
+    versions:
+    - 4.3.0
+    - 4.3.1
+    - 4.3.3
+    - 4.3.4
+  - dependency-name: yaml
+    versions:
+    - 1.10.2
+  - dependency-name: lodash
+    versions:
+    - 4.17.21
+  - dependency-name: eslint-plugin-promise
+    versions:
+    - 4.3.1

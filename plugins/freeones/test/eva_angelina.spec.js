@@ -31,10 +31,12 @@ describe("freeones", () => {
       "waist size": 25,
       "hip size": 36,
       "cup size": "D",
+      "ended": 2016,
       "bust size": 34,
       "bra size": "34D",
       gender: "Female",
       sex: "Female",
+      started: 2003,
       piercings: "Right Nostril; Navel; Left Eyebrow; Both Nipples",
       tattoos:
         "Back Of Neck; Half-Sleeve With Large Skull On Right Upper Arm; Heart With Devil Horns On Left Breast",

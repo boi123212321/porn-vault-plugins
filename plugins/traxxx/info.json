@@ -1,9 +1,9 @@
 {
   "name": "traxxx",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "authors": ["leadwolf"],
   "description": "Scrape data from traxxx",
-  "pluginEvents": ["studioCreated", "studioCustom"],
+  "events": ["studioCreated", "studioCustom"],
   "arguments": [
     {
       "name": "dry",
@@ -37,8 +37,8 @@
       "name": "studios.channelSuffix",
       "type": "String",
       "required": false,
-      "default": " (Channel)",
-      "description": "When `studios.uniqueNames` is active returning a **channel** name that also corresponds to a network, will be appended to the name. WARNING: spaces between the name & suffix will not be automatically added"
+      "default": "",
+      "description": "When `studios.uniqueNames` is active and returning a **channel** name that also corresponds to a network, will be appended to the name. WARNING: spaces between the name & suffix will not be automatically added"
     },
     {
       "name": "studios.networkSuffix",

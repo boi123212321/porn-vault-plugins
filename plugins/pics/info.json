@@ -1,9 +1,9 @@
 {
   "name": "pics",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "authors": ["boi123212321", "john4valor", "leadwolf"],
   "description": "Find actor, scene, movie, studio images based on local files. GIF support.",
-  "pluginEvents": [
+  "events": [
     "actorCreated",
     "actorCustom",
     "sceneCreated",

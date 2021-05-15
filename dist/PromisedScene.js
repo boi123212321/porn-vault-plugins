@@ -7,6 +7,15 @@ function createCommonjsModule(fn) {
 	return fn(module, module.exports), module.exports;
 }
 
+var plugin = createCommonjsModule(function (module, exports) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.applyMetadata = void 0;
+function applyMetadata(handler, info) {
+    handler.info = info;
+}
+exports.applyMetadata = applyMetadata;
+});
+
 var api = createCommonjsModule(function (module, exports) {
 var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -24,6 +33,7 @@ class Api {
         this.ctx = ctx;
         this.axios = ctx.$axios.create({
             baseURL: "https://api.metadataapi.net/api",
+            headers: { Authorization: `Bearer ${ctx.args.apiKey}` },
         });
     }
     parseScene(parse) {
@@ -498,6 +508,111 @@ const parseSceneTimestamp = (ctx) => {
 exports.parseSceneTimestamp = parseSceneTimestamp;
 });
 
+var name = "PromisedScene";
+var version = "0.4.1";
+var authors = [
+	"Ch00nassid a.k.a: DGs.Ch00",
+	"leadwolf"
+];
+var description = "Ask questions and make sure scene parsing is correct";
+var events = [
+	"sceneCreated",
+	"sceneCustom"
+];
+var require$$0 = {
+	name: name,
+	version: version,
+	authors: authors,
+	description: description,
+	events: events,
+	"arguments": [
+	{
+		name: "apiKey",
+		type: "String",
+		required: true,
+		"default": "INSERT_KEY",
+		description: "Your TPDB api key"
+	},
+	{
+		name: "useTitleInSearch",
+		type: "Boolean",
+		required: false,
+		"default": false,
+		description: "When searching TPDB: in auto search, if should use existing scene title. In manual user search, if should prompt user for title and use in search"
+	},
+	{
+		name: "alwaysUseSingleResult",
+		type: "Boolean",
+		required: false,
+		"default": false,
+		description: "When searching TPDB, if there is **only** 1 result, even if its title **doesn't** match the searched title, if should return that data"
+	},
+	{
+		name: "usePipedInputInSearch",
+		type: "Boolean",
+		required: false,
+		"default": false,
+		description: "This option is only relevant when PromisedScene is chained from another plugin (piped data are set). If true, the piped data take precedence for the search. If false, the piped data are ignored."
+	},
+	{
+		name: "parseActor",
+		type: "Boolean",
+		required: true,
+		"default": true,
+		description: "Try to find the Actor name in your database within the scenePath string"
+	},
+	{
+		name: "parseStudio",
+		type: "Boolean",
+		required: true,
+		"default": true,
+		description: "Try to find the Studio name in your database within the scenePath string"
+	},
+	{
+		name: "parseDate",
+		type: "Boolean",
+		required: true,
+		"default": true,
+		description: "Try to find the date within the scenePath string"
+	},
+	{
+		name: "manualTouch",
+		type: "Boolean",
+		required: true,
+		"default": true,
+		description: "If true, will allow you to answer questions to manually enter scene data, manually search TPDB, confirm the final result"
+	},
+	{
+		name: "sceneDuplicationCheck",
+		type: "Boolean",
+		required: true,
+		"default": true,
+		description: "Will notify you of a possible duplicate title that is being imported.  Will not currently stop / correct anything"
+	},
+	{
+		name: "source_settings.actors",
+		type: "String",
+		required: true,
+		"default": "./library/actors.db",
+		description: "finds the DB file for Actors to determine which actors are currently in your collection"
+	},
+	{
+		name: "source_settings.studios",
+		type: "String",
+		required: true,
+		"default": "./library/studios.db",
+		description: "finds the DB file for Studios to determine which Studios are currently in your collection"
+	},
+	{
+		name: "source_settings.scenes",
+		type: "String",
+		required: true,
+		"default": "./library/scenes.db",
+		description: "finds the DB file for Scenes to determine which Scenes are currently in your collection"
+	}
+]
+};
+
 var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -507,11 +622,16 @@ var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisAr
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 
 
 
 
-var main = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+
+const info_json_1 = __importDefault(require$$0);
+const handler = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
     const { event, scene, scenePath, sceneName, $throw, $logger, $formatMessage, testMode, args, $inquirer, $createImage, data, } = ctx;
     let didRunMakeChoices = false;
@@ -520,6 +640,15 @@ var main = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     }
     if (!Object.hasOwnProperty.call(args, "usePipedInputInSearch")) {
         args.usePipedInputInSearch = false;
+    }
+    const envApiKey = process.env.TPDB_API_KEY;
+    if (!Object.hasOwnProperty.call(args, "apiKey")) {
+        if (envApiKey) {
+            args.apiKey = process.env.TPDB_API_KEY;
+        }
+        else {
+            $throw("Missing apiKey in plugin args!");
+        }
     }
     if (!Object.hasOwnProperty.call(args, "useTitleInSearch")) {
         $logger.warn("Missing useTitleInSearch in plugin args!");
@@ -976,5 +1105,10 @@ var main = (ctx) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 });
+handler.requiredVersion = ">=0.27.0";
+plugin.applyMetadata(handler, info_json_1.default);
+var main = handler;
+var _default = handler;
+main.default = _default;
 
-module.exports = main;
+module.exports = _default;

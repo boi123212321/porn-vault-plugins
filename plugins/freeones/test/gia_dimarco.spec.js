@@ -35,6 +35,7 @@ describe("freeones", () => {
       "bra size": "34D",
       gender: "Female",
       sex: "Female",
+      started: 2005,
       piercings: "Left Nostril; Clitoris",
       tattoos:
         'Small Stars Behind Right Ear; 2 Red Flowers With Leaves Upper Back; Large Design Of Flames, Wings And 6 Red Roses Lower Back; "La Bella Vita" Left Side Of Torso; Traces Of Removed Floral Right Hip; Cherries, Hearts And Stars Above Of Pubes; Nautical Motif',
@@ -69,6 +70,7 @@ describe("freeones", () => {
       zodiac: "Scorpio",
       gender: "Female",
       sex: "Female",
+      started: 2005,
       piercings: "Left Nostril; Clitoris",
       tattoos:
         'Small Stars Behind Right Ear; 2 Red Flowers With Leaves Upper Back; Large Design Of Flames, Wings And 6 Red Roses Lower Back; "La Bella Vita" Left Side Of Torso; Traces Of Removed Floral Right Hip; Cherries, Hearts And Stars Above Of Pubes; Nautical Motif',

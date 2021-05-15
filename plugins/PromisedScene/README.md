@@ -1,4 +1,4 @@
-## PromisedScene 0.3.3
+## PromisedScene 0.4.1
 
 by Ch00nassid a.k.a: DGs.Ch00, leadwolf
 
@@ -14,6 +14,8 @@ The plugin will search TPDB with one of scene's actors, the studio (these two mu
 With the results from TPDB, it then tries to match their titles to the title of the scene. If a match is found, it will be returned.  
 If no match is found, and `manualTouch` is enabled, you will be able to interactively search or enter the scene's details, until you confirm the result or quit the process.
 
+🚨 As of 15/04/2021, an API key is required. See `args.apiKey`
+
 ### Tips
 
 - When running without `manualTouch`, but you still want to search TPDB with a specific string, you can enable `useTitleInSearch`, change the scene's name and then run the plugin.
@@ -24,6 +26,7 @@ If no match is found, and `manualTouch` is enabled, you will be able to interact
 
 | Name                    | Type    | Required | Description                                                                                                                                                                                        |
 | ----------------------- | ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| apiKey                  | String  | true     | Your TPDB api key                                                                                                                                                                                  |
 | useTitleInSearch        | Boolean | false    | When searching TPDB: in auto search, if should use existing scene title. In manual user search, if should prompt user for title and use in search                                                  |
 | alwaysUseSingleResult   | Boolean | false    | When searching TPDB, if there is **only** 1 result, even if its title **doesn't** match the searched title, if should return that data                                                             |
 | usePipedInputInSearch   | Boolean | false    | This option is only relevant when PromisedScene is chained from another plugin (piped data are set). If true, the piped data take precedence for the search. If false, the piped data are ignored. |
@@ -48,6 +51,7 @@ If no match is found, and `manualTouch` is enabled, you will be able to interact
       "PromisedScene": {
         "path": "./plugins/PromisedScene.js",
         "args": {
+          "apiKey": "INSERT_KEY",
           "useTitleInSearch": false,
           "alwaysUseSingleResult": false,
           "usePipedInputInSearch": false,
@@ -86,6 +90,7 @@ plugins:
     PromisedScene:
       path: ./plugins/PromisedScene.js
       args:
+        apiKey: INSERT_KEY
         useTitleInSearch: false
         alwaysUseSingleResult: false
         usePipedInputInSearch: false

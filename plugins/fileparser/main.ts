@@ -1,9 +1,13 @@
-import { MySceneContext } from "./types";
+import { applyMetadata, Plugin } from "../../types/plugin";
 import { SceneOutput } from "../../types/scene";
+
+import { MySceneContext } from "./types";
 import { dateToTimestamp, matchElement } from "./utils";
 import { findAndLoadSceneConfig } from "./config";
 
-module.exports = async (ctx: MySceneContext): Promise<SceneOutput> => {
+import info from "./info.json";
+
+const handler: Plugin<MySceneContext, SceneOutput> = async (ctx) => {
   const { args, scenePath, $logger, $path, $throw } = ctx;
 
   if (!scenePath) $throw("Uh oh. You shouldn't use the plugin for this type of event");
@@ -117,3 +121,11 @@ module.exports = async (ctx: MySceneContext): Promise<SceneOutput> => {
     return sceneOutput;
   }
 };
+
+handler.requiredVersion = ">=0.27.0";
+
+applyMetadata(handler, info);
+
+module.exports = handler;
+
+export default handler;

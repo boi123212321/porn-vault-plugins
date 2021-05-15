@@ -22,6 +22,10 @@ This plugin retrieves data from Traxxx.
 
 - When the plugin is run for a name, that can be either a channel or a network, the plugin will return the data according to the `args.studios.channelPriority` config. When `true`, the channel data will be returned, and the network, when `false`.  
 In this case, when `args.studios.uniqueNames` is `true`, the name will be appended with the appropriate suffix `args.studios.channelSuffix` & `args.studios.channelSuffix`. Otherwise, the name will be returned as is in Traxxx.
+- 🚨 WARNING: If you have a suffix in `channelSuffix`: it may lead to "duplicate" studios being created.  
+Example: with a suffix such as `" (Channel)"`. First, a scene as scanned and a scene plugin returns a studio called `"Test"`. Since the studio doesn't exist, it is created. Then this plugin is then run, changing the studio name to `"Test (Channel)"`  
+A second sene is scanned, and a scene plugin again returns a studio called `"Test"`. Depending on your matching config, the returned studio `"Test"` may not match the existing studio `"Test (Channel)"`. Thus, a new `"Test"` studio will be created. Then, this plugin is run on the newly created studio, changing its name to `"Test (Channel)"`.  
+So now you have 2 studios called `"Test (Channel)"`.
 
 - If the plugin receives a studio name that already has the same suffix as in the args, it will only try to search and return the data for that type indicated by the suffix.
 

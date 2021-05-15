@@ -1,9 +1,9 @@
 {
   "name": "freeones",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "authors": ["boi123212321", "john4valor", "pizzajohnny", "leadwolf"],
   "description": "Scrape actress data from freeones.com",
-  "pluginEvents": ["actorCreated", "actorCustom"],
+  "events": ["actorCreated", "actorCustom"],
   "arguments": [
     {
       "name": "dry",
@@ -17,7 +17,7 @@
       "type": "String[]",
       "required": false,
       "default": [],
-      "description": "Array of data fields to pick (possible values: 'nationality', 'zodiac', 'aliases', 'height', 'weight', 'avatar', 'bornOn', 'labels', 'hair color', 'eye color', 'ethnicity', 'birthplace', 'measurements', 'tattoos', 'piercings')"
+      "description": "Array of data fields to pick (possible values: 'nationality', 'zodiac', 'aliases', 'height', 'weight', 'avatar', 'bornOn', 'labels', 'hair color', 'eye color', 'ethnicity', 'birthplace', 'measurements', 'tattoos', 'piercings', 'career')"
     },
     {
       "name": "blacklist",

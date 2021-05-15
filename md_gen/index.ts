@@ -5,37 +5,14 @@ const table = require("markdown-table") as (val: any) => any;
 import YAML from "yaml";
 
 import { setIn } from "./util";
-
-interface PluginArg {
-  name: string;
-  type: boolean;
-  required: boolean;
-  default?: any;
-  description?: string;
-}
-
-type PluginEvents =
-  | "actorCreated"
-  | "actorCustom"
-  | "sceneCreated"
-  | "sceneCustom"
-  | "movieCreated";
-
-interface PluginInfo {
-  name: string;
-  version: string;
-  authors: string[];
-  description: string;
-  pluginEvents: PluginEvents[];
-  arguments: PluginArg[];
-}
+import { IPluginInfo, PluginArg } from "../types/plugin";
 
 const pluginTemplate = fs.readFileSync("plugin_template.md", "utf-8");
 
 const pluginFolder = nodepath.resolve("../plugins");
 const pluginDirNames = fs.readdirSync(pluginFolder);
 
-const info: Record<string, PluginInfo> = {};
+const info: Record<string, IPluginInfo> = {};
 
 function generateDefaultPluginArguments(pluginArgs: PluginArg[]) {
   const args: Record<string, any> = {};
@@ -68,10 +45,10 @@ function generatePluginEvents(pluginName: string, pluginEvents: string[]) {
   return events;
 }
 
-function generatePluginExample(pluginInfo: PluginInfo) {
+function generatePluginExample(pluginInfo: IPluginInfo) {
   const defaultArgs = generateDefaultPluginArguments(pluginInfo.arguments);
 
-  const pluginEvents = generatePluginEvents(pluginInfo.name, pluginInfo.pluginEvents);
+  const pluginEvents = generatePluginEvents(pluginInfo.name, pluginInfo.events);
 
   return {
     plugins: {
@@ -97,7 +74,7 @@ const generatePluginDocs = () => {
 
     const infoPath = nodepath.join(pluginPath, "info.json");
 
-    const pluginInfo = JSON.parse(fs.readFileSync(infoPath, "utf-8")) as PluginInfo;
+    const pluginInfo = JSON.parse(fs.readFileSync(infoPath, "utf-8")) as IPluginInfo;
     info[pluginDirName] = pluginInfo;
 
     const docPath = nodepath.join(pluginPath, "docs.md");

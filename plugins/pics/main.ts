@@ -1,8 +1,11 @@
+import { applyMetadata, Plugin } from "../../types/plugin";
 import { ActorOutput } from "../../types/actor";
 import { MovieOutput } from "../../types/movie";
-import { ScrapeDefinition, MyContext } from "./types";
 
+import { ScrapeDefinition, MyContext } from "./types";
 import { entries, executeScape, validateArgs } from "./utils";
+
+import info from "./info.json";
 
 interface ScrapeEventDefinition {
   events: string[];
@@ -33,7 +36,7 @@ const eventScrapers: ScrapeEventDefinition[] = [
   },
 ];
 
-module.exports = async (ctx: MyContext): Promise<ActorOutput | MovieOutput | undefined> => {
+const handler: Plugin<MyContext, ActorOutput | MovieOutput | undefined> = async (ctx) => {
   const eventScraperDefinition = eventScrapers.find((scraper) =>
     scraper.events.includes(ctx.event)
   );
@@ -93,3 +96,11 @@ module.exports = async (ctx: MyContext): Promise<ActorOutput | MovieOutput | und
 
   return finalResult;
 };
+
+handler.requiredVersion = ">=0.27.0";
+
+applyMetadata(handler, info);
+
+module.exports = handler;
+
+export default handler;

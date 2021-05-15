@@ -1,6 +1,9 @@
+import { applyMetadata, Plugin } from "../../types/plugin";
 import { ActorContext } from "../../types/actor";
 import { SceneContext } from "../../types/scene";
 import { StudioContext } from "../../types/studio";
+
+import info from "./info.json";
 
 interface MyContext {
   args: {
@@ -11,7 +14,10 @@ interface MyContext {
 
 const lower = (s: string): string => s.toLowerCase();
 
-module.exports = ({ args, data }: (ActorContext | SceneContext | StudioContext) & MyContext) => {
+const handler: Plugin<
+  (ActorContext | SceneContext | StudioContext) & MyContext,
+  { labels?: string[] }
+> = async ({ args, data }) => {
   const whitelist = (args.whitelist || []).map(lower);
   const blacklist = (args.blacklist || []).map(lower);
 
@@ -33,3 +39,11 @@ module.exports = ({ args, data }: (ActorContext | SceneContext | StudioContext) 
     }),
   };
 };
+
+handler.requiredVersion = ">=0.27.0";
+
+applyMetadata(handler, info);
+
+module.exports = handler;
+
+export default handler;
