@@ -22,7 +22,7 @@
     "@types/fluent-ffmpeg": "^2.1.16",
     "@types/inquirer": "^7.3.1",
     "@types/node": "^15.0.1",
-    "@types/semver": "^7.3.4",
+    "@types/semver": "^7.3.6",
     "@types/winston": "^2.4.4",
     "@types/yaml": "^1.9.7",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
