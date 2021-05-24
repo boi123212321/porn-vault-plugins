@@ -1,8 +1,8 @@
 {
   "name": "PromisedScene",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "authors": ["Ch00nassid a.k.a: DGs.Ch00", "leadwolf"],
-  "description": "Ask questions and make sure scene parsing is correct",
+  "description": "TPDB parser. Manual input possible: manual scene data entry, TPDB search result confirmation",
   "events": ["sceneCreated", "sceneCustom"],
   "arguments": [
     {

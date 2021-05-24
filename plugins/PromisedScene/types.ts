@@ -1,7 +1,8 @@
+/* eslint-disable camelcase */
 import { SceneContext } from "../../types/scene";
 
 export namespace SceneResult {
-  export interface Posters {
+  export interface Poster {
     large: string;
     medium: string;
     small: string;
@@ -14,49 +15,49 @@ export namespace SceneResult {
     small: string;
   }
 
-  export interface Extra {
+  export interface Media {
+    id: number;
+    url: string;
+    size: number;
+    order: number;
+  }
+
+  export type Extra = Partial<{
     gender: string;
     birthday: string;
-    iafd?: any;
-    astrology: string;
+    iafd: any;
+    astrology: any;
     birthplace: string;
     ethnicity: string;
-    nationality: string;
+    nationality: any;
     haircolor: string;
     height: string;
     weight: string;
     measurements: string;
-    tattoos?: any;
-    piercings: string;
-    yearsactive?: any;
+    tattoos: any;
+    piercings: any;
+    yearsactive: any;
     cupsize: string;
     fakeboobs: boolean;
-    status: string;
-  }
-
-  export interface Extras {
-    gender: string;
-    birthday: string;
-    birthday_timestamp?: number;
-    birthplace: string;
+    status: any;
+    birthday_timestamp: number;
     birthplace_code: string;
-    active?: number;
-    astrology: string;
-    ethnicity: string;
-    nationality: string;
+    active: number;
     hair_colour: string;
-    weight: string;
-    height: string;
-    measurements: string;
-    cupsize: string;
-    tattoos: string;
-    piercings: string;
     first_seen: Date;
     waist: string;
     hips: string;
-  }
+  }>;
 
-  export interface Poster {
+  export type External = Partial<{
+    iafd_url: string;
+    babeopedia_id: string;
+    freeones_id: string;
+    indexxx_id: string;
+  }>;
+
+  export interface ParentPoster {
+    id: number;
     url: string;
     size: number;
     order: number;
@@ -64,28 +65,34 @@ export namespace SceneResult {
 
   export interface Parent {
     id: string;
+    _id: number;
     slug: string;
     name: string;
     bio: string;
     is_parent: boolean;
-    extras: Extras;
-    aliases: string[];
+    extras: Extra;
+    external: External;
     image: string;
     thumbnail: string;
-    posters: Poster[];
+    posters: ParentPoster[];
   }
 
   export interface Site {
     id: number;
+    parent_id: number;
+    network_id: number;
     name: string;
     short_name: string;
     url: string;
     logo: string;
     favicon: string;
+    poster: string;
   }
 
-  export interface Performer {
+  export interface ParentPerformer {
     id: string;
+    _id: number;
+    site_id: number;
     slug?: any;
     name: string;
     bio: string;
@@ -94,56 +101,62 @@ export namespace SceneResult {
     image: string;
     thumbnail: string;
     parent: Parent;
-    site: Site;
   }
 
   export interface Tag {
     id: number;
     tag: string;
+    name: string;
   }
 
-  export interface Movie {
+  export interface Performer {
     id: string;
-    title: string;
-    description?: any;
+    _id: number;
     site_id: number;
-    date?: any;
-    url?: any;
-    created: string;
-    last_updated: string;
+    slug?: any;
+    name: string;
+    bio: string;
+    is_parent: boolean;
+    extra: Extra;
+    image: string;
+    thumbnail: string;
+    parent: ParentPerformer;
   }
 
   export interface SceneData {
     id: string;
+    _id: number;
     title: string;
     slug: string;
+    external_id: string;
     description: string;
     site_id: number;
     date: string;
     url: string;
+    image: string;
     poster: string;
     trailer: string;
-    posters: Posters;
+    posters: Poster;
     background: Background;
+    media: Media;
     created: string;
     last_updated: string;
     performers: Performer[];
     site: Site;
+    hashes: string[];
     tags: Tag[];
-    hashes: any[];
-    movie: Movie;
   }
 
   export interface Links {
     first: string;
     last: string;
-    prev?: any;
-    next: string;
+    prev?: string;
+    next?: string;
   }
 
   export interface Link {
     url: string;
-    label: any;
+    label: string;
     active: boolean;
   }
 
@@ -158,16 +171,16 @@ export namespace SceneResult {
     total: number;
   }
 
+  export type SlimSceneData = Omit<SceneData, "tags">;
+
   export interface SceneListResult {
-    data: SceneData[];
+    data: SlimSceneData[];
     links: Links;
     meta: Meta;
   }
 
   export interface SingleSceneResult {
     data: SceneData;
-    links: Links;
-    meta: Meta;
   }
 }
 

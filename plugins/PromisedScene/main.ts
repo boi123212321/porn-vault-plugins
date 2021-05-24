@@ -539,10 +539,11 @@ const handler: Plugin<MyContext, SceneOutput> = async (ctx) => {
     timestamp: number;
     extra: string;
   }>): Promise<SceneOutput | null> {
-    async function mergeSearchResult(rawScene: SceneResult.SceneData): Promise<SceneOutput> {
+    async function mergeSearchResult(rawScene: SceneResult.SlimSceneData): Promise<SceneOutput> {
       checkSceneExistsInDb(ctx, rawScene.title);
 
-      const sceneData = normalizeSceneResultData(rawScene);
+      const fullSceneRes = await tpdbApi.getSceneById(rawScene.id);
+      const sceneData = normalizeSceneResultData(fullSceneRes.data.data);
 
       if (
         (!sceneData.actors || !sceneData.actors.length) &&
@@ -581,7 +582,7 @@ const handler: Plugin<MyContext, SceneOutput> = async (ctx) => {
       return null;
     }
 
-    let sceneList: SceneResult.SceneData[] = [];
+    let sceneList: SceneResult.SlimSceneData[] = [];
 
     try {
       $logger.verbose(`Running TPDB Primary Search on: ${JSON.stringify(initialQuery)}`);
@@ -605,7 +606,7 @@ const handler: Plugin<MyContext, SceneOutput> = async (ctx) => {
       return null;
     }
 
-    let matchedScene: SceneResult.SceneData | null;
+    let matchedScene: SceneResult.SlimSceneData | null;
     if (args.usePipedInputInSearch && Object.keys(data).length) {
       // Match results against piped data
       matchedScene = matchSceneResultToPipedData(ctx, sceneList);
@@ -657,7 +658,7 @@ const handler: Plugin<MyContext, SceneOutput> = async (ctx) => {
     });
 
     const findResultIndex = possibleTitles.indexOf(multipleSitesAnswer.trim());
-    const userSelectedScene: SceneResult.SceneData | undefined = sceneList[findResultIndex];
+    const userSelectedScene: SceneResult.SlimSceneData | undefined = sceneList[findResultIndex];
 
     if (!userSelectedScene) {
       $logger.info("User did not select a scene, exiting scene selection");

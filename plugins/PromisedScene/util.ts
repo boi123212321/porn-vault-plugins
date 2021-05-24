@@ -163,10 +163,10 @@ export const ignoreDbLine = (line: string | undefined): boolean => {
  */
 export const matchSceneResultToSearch = (
   ctx: MyContext,
-  sceneList: SceneResult.SceneData[],
+  sceneList: SceneResult.SlimSceneData[],
   knownActors: string[],
   studio: string | undefined
-): SceneResult.SceneData | null => {
+): SceneResult.SlimSceneData | null => {
   ctx.$logger.verbose(`MATCH: ${sceneList.length} results found`);
 
   for (const scene of sceneList) {
@@ -265,8 +265,8 @@ function checkStudioMatch(site: SceneResult.Site, studio: string | undefined): b
  */
 export const matchSceneResultToPipedData = (
   ctx: MyContext,
-  sceneList: SceneResult.SceneData[]
-): SceneResult.SceneData | null => {
+  sceneList: SceneResult.SlimSceneData[]
+): SceneResult.SlimSceneData | null => {
   const { data, $formatMessage, $moment } = ctx;
   ctx.$logger.verbose(`MATCH PIPED: ${sceneList.length} results found`);
 

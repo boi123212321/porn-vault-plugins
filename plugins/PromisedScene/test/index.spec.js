@@ -256,6 +256,8 @@ describe.skip("PromisedScene", () => {
         "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
       );
       expect(result.releaseDate).to.be.a("number");
+      expect(result.labels).to.be.an("array");
+      expect(result.labels).to.not.be.empty;
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
       expect(result.studio).to.equal("NEW SENSATIONS");
