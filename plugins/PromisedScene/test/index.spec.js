@@ -1,6 +1,7 @@
 import { createPluginRunner } from "../../../context";
 import plugin from "../main";
 import { manualTouchChoices } from "../util";
+import { SwanOfSorrow } from "./fixtures/scenes";
 
 const { expect } = require("chai");
 const IMAGE_ID = "MOCK_IMAGE_ID";
@@ -11,7 +12,7 @@ const mockContext = {
 
 const runPlugin = createPluginRunner("PromisedScene", plugin);
 
-describe.skip("PromisedScene", () => {
+describe("PromisedScene", () => {
   describe("Handle all of the errors properly.", () => {
     it("Should fail with error:  Plugin used for unsupported event", async () => {
       let errord = false;
@@ -242,9 +243,9 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         scenePath:
-          "Z:\\Keep\\test\\[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+          "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           testSiteUnavailable: false,
@@ -252,15 +253,13 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.labels).to.be.an("array");
       expect(result.labels).to.not.be.empty;
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("Should not return an actor with a single name like 'PRESSLEY', even if it exists but allow for manual SEARCH success", async () => {
       const result = await runPlugin({
@@ -282,17 +281,17 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] PRESSLEY 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] PRESSLEY 2018.02.14 - Swan of Sorrow Part 4.mp4",
         scenePath:
-          "Z:\\Keep\\test\\[New Sensations] PRESSLEY 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+          "Z:\\Keep\\test\\[Teen Fidelity] PRESSLEY 2018.02.14 - Swan of Sorrow Part 4.mp4",
         testMode: {
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.SEARCH,
             enterMovie: "n",
             enterOneActorName: "Mia Malkova",
             enterSceneDate: "",
-            enterSceneTitle: "So Young So Sexy",
-            enterStudioName: "NEW SENSATIONS",
+            enterSceneTitle: SwanOfSorrow.title,
+            enterStudioName: SwanOfSorrow.studio,
           },
           correctImportInfo: "y",
           testSiteUnavailable: false,
@@ -300,13 +299,11 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("Should grab an alias for an actor Madison Swan = Mia Malkova", async () => {
       const result = await runPlugin({
@@ -328,9 +325,9 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Madison Swan 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Madison Swan 2018.02.14 - Swan of Sorrow Part 4.mp4",
         scenePath:
-          "Z:\\Keep\\test\\[New Sensations] Madison Swan 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+          "Z:\\Keep\\test\\[Teen Fidelity] Madison Swan 2018.02.14 - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           testSiteUnavailable: false,
@@ -338,13 +335,11 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("Should grab an alias with no spaces for an actor Madison Swan = Mia Malkova", async () => {
       const result = await runPlugin({
@@ -366,9 +361,9 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] MadisonSwan 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] MadisonSwan 2018.02.14 - Swan of Sorrow Part 4.mp4",
         scenePath:
-          "Z:\\Keep\\test\\[New Sensations] MadisonSwan 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+          "Z:\\Keep\\test\\[Teen Fidelity] MadisonSwan 2018.02.14 - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           testSiteUnavailable: false,
@@ -376,13 +371,11 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("Search and Grab a scene with multiple parsed Actors, run a search and match based on title of scene - testing YY-MM-DD", async () => {
       const result = await runPlugin({
@@ -404,22 +397,19 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName:
-          "[New Sensations] Riley Nixon, Mia Malkova 16.04.08 - Makes the Heart Skip a Beat.mp4",
-        scenePath:
-          "Z:\\Keep\\test\\[New Sensations] Riley Nixon, Mia Malkova 16.04.08 - Makes the Heart Skip a Beat.mp4",
+        sceneName: "[Sex Art] Lena Love, Venera 21.01.27 - Delicate Awakening.mp4",
+        scenePath: "Z:\\Keep\\test\\[Sex Art] Lena Love, Venera 21.01.27 - Delicate Awakening.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.SEARCH,
             enterMovie: "n",
-            enterOneActorName: "Mia Malkova",
-            enterSceneDate: "16.04.08",
-            enterSceneTitle: "Makes the Heart Skip a Beat",
-            enterStudioName: "NEW SENSATIONS",
-            manualActors: "Mia Malkova, Riley Nixon",
-            manualDescription:
-              "stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!",
+            enterOneActorName: "Lena Love",
+            enterSceneDate: "21.01.27",
+            enterSceneTitle: "Delicate Awakening",
+            enterStudioName: "SEX ART",
+            manualActors: "Lena Love, Venera",
+            manualDescription: "Gorgeous Venera is roused from sleep by Lena Love’s gentle touch",
             movieTitle: "",
             multipleChoice: "",
           },
@@ -429,12 +419,19 @@ describe.skip("PromisedScene", () => {
       });
       expect(result).to.be.an("object");
       expect(result.description).to.equal(
-        "Mia could not stop thinking of Riley, her tutor, and wondered if she would ever have the courage to expose her true feelings towards her. When Riley asked Mia to pose nude for her art final, Mia jumped at the chance. Nervously as she posed, Riley expressed that, out of fear, she never told Mia how she felt. That gave Mia the opening she had desired for so long."
+        'Gorgeous Venera is roused from sleep by Lena Love’s gentle touch, as Andrej Lupin’s hot lesbian movie "Delicate Awakening" \
+begins. Playful chatter gives way to sweet kisses, the beautiful blondes undressing each other as they embrace. Lena lavishes \
+attention on her girlfriend’s big breasts, licking and sucking her nipples sensuously, then crawls up to sit on her face. Venera \
+licks her succulent pink folds, pausing for them both to get naked before Lena crouches between her splayed thighs and eats her \
+shaved pussy voraciously. She adds her fingers to drive her sweetheart over the edge of a powerful orgasm. Lena giggles with \
+excitement as Venera starts to stroke and lick her, flicking her rigid nipples with her tongue and strumming her clit skilfully. \
+She eases two fingers into Lena’s slick pussy to bring her to an intense, quivering orgasm. They move into a sixty-nine with Venera \
+on top, pleasuring each other in unison, both of them squirming and squealing in ecstasy.'
       );
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal("SEX ART");
     });
     it("Search and Grab a Scene that has multiple parsed Studios - testing dd.mm.yyyy", async () => {
       const result = await runPlugin({
@@ -558,8 +555,8 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova",
-        scenePath: "Z:\\Keep\\test\\[New Sensations] Mia Malkova.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova",
+        scenePath: "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
@@ -567,25 +564,23 @@ describe.skip("PromisedScene", () => {
             enterMovie: "n",
             enterOneActorName: "Mia Malkova",
             enterSceneDate: "",
-            enterSceneTitle: "Mia Malkova New Sensations",
-            enterStudioName: "NEW SENSATIONS",
+            enterSceneTitle: "Mia Malkova Teen Fidelity",
+            enterStudioName: SwanOfSorrow.studio,
             manualActors: "",
             manualDescription: "",
             movieTitle: "",
-            multipleChoice: "A Very Close Friend",
+            multipleChoice: "Swan of Sorrow Part 4",
           },
           testSiteUnavailable: false,
           status: true,
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia is pleasantly surprised by her husband’s growing excitement when she confesses to sharing a stolen kiss with another woman. Redhead Katy did not hesitate taking another hot steamy affair with Mia, while her husband seemed to enjoy himself a little too much."
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("Select 'none of the above' of the last 2 options in a rawlist, it should make the user select a choice.  Should return nothing because we assume we select 'do nothing' when asked again", async () => {
       const result = await runPlugin({
@@ -607,8 +602,8 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova",
-        scenePath: "Z:\\Keep\\test\\[New Sensations] Mia Malkova.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova",
+        scenePath: "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
@@ -616,8 +611,8 @@ describe.skip("PromisedScene", () => {
             enterMovie: "n",
             enterOneActorName: "Mia Malkova",
             enterSceneDate: "",
-            enterSceneTitle: "New Sensations Mia Malkova",
-            enterStudioName: "NEW SENSATIONS",
+            enterSceneTitle: "Teen Fidelity Mia Malkova",
+            enterStudioName: "TEEN FIDELITY",
             manualActors: "",
             manualDescription: "",
             movieTitle: "",
@@ -649,8 +644,8 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #08.mp4",
-        scenePath: "Z:\\Keep\\test\\[New Sensations] Mia Malkova So Young So Sexy P.O.V. #08.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
+        scenePath: "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
@@ -659,7 +654,7 @@ describe.skip("PromisedScene", () => {
             enterOneActorName: "Mia Malkova",
             enterSceneDate: "",
             enterSceneTitle: "",
-            enterStudioName: "NEW SENSATIONS",
+            enterStudioName: SwanOfSorrow.studio,
             manualActors: "",
             manualDescription: "",
             movieTitle: "",
@@ -670,13 +665,11 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("TPD not available and should not return anything because Manualinfo is = n", async () => {
       const result = await runPlugin({
@@ -698,16 +691,16 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova",
-        scenePath: "Z:\\Keep\\test\\[New Sensations] Mia Malkova 2013.10.10.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova",
+        scenePath: "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova 2018.02.14.mp4",
         testMode: {
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.SEARCH,
             enterMovie: "n",
             enterOneActorName: "Mia Malkova",
             enterSceneDate: "",
-            enterSceneTitle: "New Sensations Mia Malkova",
-            enterStudioName: "NEW SENSATIONS",
+            enterSceneTitle: "Teen Fidelity Mia Malkova",
+            enterStudioName: "TEEN FIDELITY",
             manualActors: "",
             manualDescription: "",
             movieTitle: "",
@@ -842,20 +835,18 @@ describe.skip("PromisedScene", () => {
             manualDescription: "",
             movieTitle: "",
             multipleChoice: "",
-            extra: "Mia Malkova NEW SENSATIONS 2013.10.10",
+            extra: "Mia Malkova TEEN FIDELITY 2018.02.14",
           },
           testSiteUnavailable: false,
           status: true,
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("New Sensations");
+      expect(result.studio.toUpperCase()).to.equal(SwanOfSorrow.studio);
     });
   });
 
@@ -880,9 +871,9 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosUnPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         scenePath:
-          "Z:\\Keep\\test\\[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+          "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         testMode: {
           testSiteUnavailable: false,
           status: true,
@@ -891,6 +882,9 @@ describe.skip("PromisedScene", () => {
       expect(result).to.deep.equal({});
     });
     it("Should allow manual input, no movie, no search -- Unpopulated databases", async () => {
+      const manualDescription =
+        "stud lovin. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!";
+
       const result = await runPlugin({
         ...mockContext,
         event: "sceneCreated",
@@ -910,21 +904,20 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosUnPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         scenePath:
-          "Z:\\Keep\\test\\[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+          "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.MANUAL_ENTER,
             enterMovie: "n",
             enterOneActorName: "Mia Malkova",
-            enterSceneDate: "2013.10.10",
-            enterSceneTitle: "So Young So Sexy P.O.V. #8 - Scene 2",
-            enterStudioName: "NEW SENSATIONS",
-            manualActors: "Mia Malkova, Mike Adriano",
-            manualDescription:
-              "stud lovin. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!",
+            enterSceneDate: SwanOfSorrow.dateStr,
+            enterSceneTitle: "Swan of Sorrow Part 4",
+            enterStudioName: SwanOfSorrow.studio,
+            manualActors: "Mia Malkova,James Deen",
+            manualDescription,
             movieTitle: "",
             multipleChoice: "",
           },
@@ -933,14 +926,17 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "stud lovin. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(manualDescription);
       expect(result.releaseDate).to.be.a("number");
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.actors).to.contain("Mia Malkova");
+      expect(result.actors).to.contain("James Deen");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("Not the correct import information, saying 'no' should assume 'do nothing' on the second question", async () => {
+      const manualDescription =
+        "stud lovin. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!";
+
       const result = await runPlugin({
         ...mockContext,
         event: "sceneCreated",
@@ -960,21 +956,20 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosUnPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         scenePath:
-          "Z:\\Keep\\test\\[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+          "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "n",
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.MANUAL_ENTER,
             enterMovie: "n",
             enterOneActorName: "Mia Malkova",
-            enterSceneDate: "2013.10.10",
-            enterSceneTitle: "So Young So Sexy P.O.V. #8 - Scene 2",
-            enterStudioName: "NEW SENSATIONS",
-            manualActors: "Mia Malkova, Mike Adriano",
-            manualDescription:
-              "stud lovin. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!",
+            enterSceneDate: SwanOfSorrow.dateStr,
+            enterSceneTitle: "Swan of Sorrow Part 4",
+            enterStudioName: SwanOfSorrow.studio,
+            manualActors: "Mia Malkova, James Deen",
+            manualDescription,
             movieTitle: "",
             multipleChoice: "",
           },
@@ -985,6 +980,10 @@ describe.skip("PromisedScene", () => {
       expect(result).to.deep.equal({});
     });
     it("Should allow manual input, with movie, no search -- Unpopulated databases", async () => {
+      const manualDescription =
+        "stud lovin. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!";
+      const movieTitle = "mock movie";
+
       const result = await runPlugin({
         ...mockContext,
         event: "sceneCreated",
@@ -1004,22 +1003,21 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosUnPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         scenePath:
-          "Z:\\Keep\\test\\[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+          "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.MANUAL_ENTER,
             enterMovie: "y",
             enterOneActorName: "Mia Malkova",
-            enterSceneDate: "2013.10.10",
-            enterSceneTitle: "So Young So Sexy P.O.V. #8 - Scene 2",
-            enterStudioName: "NEW SENSATIONS",
-            manualActors: "Mia Malkova, Mike Adriano",
-            manualDescription:
-              "stud lovin. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!",
-            movieTitle: "So Young So Sexy P.O.V. #8",
+            enterSceneDate: SwanOfSorrow.dateStr,
+            enterSceneTitle: "Swan of Sorrow Part 4",
+            enterStudioName: SwanOfSorrow.studio,
+            manualActors: "Mia Malkova, James Deen",
+            manualDescription,
+            movieTitle,
             multipleChoice: "",
           },
           testSiteUnavailable: false,
@@ -1027,13 +1025,11 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "stud lovin. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(manualDescription);
       expect(result.releaseDate).to.be.a("number");
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
-      expect(result.movie).to.equal("So Young So Sexy P.O.V. #8");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
+      expect(result.movie).to.equal(movieTitle);
     });
 
     it("no db, alwaysUseSingleResult, extra search -- Should find with correct answers", async () => {
@@ -1072,20 +1068,18 @@ describe.skip("PromisedScene", () => {
             manualDescription: "",
             movieTitle: "",
             multipleChoice: "",
-            extra: "Mia Malkova NEW SENSATIONS 2013.10.10",
+            extra: "Mia Malkova TEEN FIDELITY 2018.02.14",
           },
           testSiteUnavailable: false,
           status: true,
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("New Sensations");
+      expect(result.studio.toUpperCase()).to.equal(SwanOfSorrow.studio);
     });
   });
 
@@ -1110,20 +1104,20 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
-        scenePath: "Z:\\Keep\\test\\[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
+        scenePath: "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.SEARCH,
             enterMovie: "n",
             enterOneActorName: "Mia Malkova",
-            enterSceneDate: "2013.10.10",
-            enterSceneTitle: "So Young So Sexy P.O.V. #8 - Scene 2",
-            enterStudioName: "NEW SENSATIONS",
+            enterSceneDate: SwanOfSorrow.dateStr,
+            enterSceneTitle: "Swan of Sorrow Part 4",
+            enterStudioName: SwanOfSorrow.studio,
             manualActors: "",
             manualDescription: "",
-            movieTitle: "So Young So Sexy P.O.V. #8",
+            movieTitle: "",
             multipleChoice: "0",
           },
           testSiteUnavailable: false,
@@ -1131,13 +1125,11 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("should import without an image. and create an error", async () => {
       const result = await runPlugin({
@@ -1160,20 +1152,20 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
-        scenePath: "Z:\\Keep\\test\\[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
+        scenePath: "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.SEARCH,
             enterMovie: "n",
             enterOneActorName: "Mia Malkova",
-            enterSceneDate: "2013.10.10",
-            enterSceneTitle: "So Young So Sexy P.O.V. #8 - Scene 2",
-            enterStudioName: "NEW SENSATIONS",
+            enterSceneDate: SwanOfSorrow.dateStr,
+            enterSceneTitle: "Swan of Sorrow Part 4",
+            enterStudioName: SwanOfSorrow.studio,
             manualActors: "",
             manualDescription: "",
-            movieTitle: "So Young So Sexy P.O.V. #8",
+            movieTitle: "",
             multipleChoice: "0",
           },
           testSiteUnavailable: false,
@@ -1181,13 +1173,11 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result).to.not.have.property("thumbnail");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result).to.not.have.property("thumbnail"); // expect property to not exist when creation fails
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
 
     it("Should have DB files with Scene already -- No Studio or Actor -- manualTouch True -- Should find with correct answers", async () => {
@@ -1210,21 +1200,21 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
-        scenePath: "Z:\\Keep\\test\\[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
+        scenePath: "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.SEARCH,
             enterMovie: "y",
             enterOneActorName: "Mia Malkova",
-            enterSceneDate: "2013.10.10",
-            enterSceneTitle: "So Young So Sexy P.O.V. #8 - Scene 2",
-            enterStudioName: "NEW SENSATIONS",
-            manualActors: "Mia Malkova,Mike Adriano",
+            enterSceneDate: SwanOfSorrow.dateStr,
+            enterSceneTitle: "Swan of Sorrow Part 4",
+            enterStudioName: SwanOfSorrow.studio,
+            manualActors: "Mia Malkova, James Deen",
             manualDescription:
               "stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!",
-            movieTitle: "So Young So Sexy P.O.V. #8",
+            movieTitle: "",
             multipleChoice: "0",
           },
           testSiteUnavailable: false,
@@ -1232,13 +1222,11 @@ describe.skip("PromisedScene", () => {
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("Should have DB files with Scene already but return nothing, no questions -- No Studio or Actor parsed", async () => {
       const result = await runPlugin({
@@ -1260,8 +1248,8 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosUnPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
-        scenePath: "Z:\\Keep\\test\\[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
+        scenePath: "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
         testMode: {
           questionAnswers: {
             enterInfoSearch: manualTouchChoices.NOTHING,
@@ -1293,8 +1281,8 @@ describe.skip("PromisedScene", () => {
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
-        scenePath: "Z:\\Keep\\test\\[New Sensations] Mia Malkova - So Young So Sexy P.O.V. #8.mp4",
+        sceneName: "[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
+        scenePath: "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           questionAnswers: {
@@ -1308,20 +1296,18 @@ describe.skip("PromisedScene", () => {
             manualDescription: "",
             movieTitle: "",
             multipleChoice: "",
-            extra: "Mia Malkova NEW SENSATIONS 2013.10.10",
+            extra: "Mia Malkova TEEN FIDELITY 2018.02.14",
           },
           testSiteUnavailable: false,
           status: true,
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("New Sensations");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
   });
 
