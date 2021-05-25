@@ -10,6 +10,8 @@ If no match is found, and `manualTouch` is enabled, you will be able to interact
 
 - If TPDB only returns 1 result and the plugin does not match the titles but you are sure they are the same , you can enable `alwaysUseSingleResult` to override the matching process.
 
+- Make sure to use set your TPDB api key in the args.
+
 ### Changelog
 
 - **0.4.2 - server 0.27**
