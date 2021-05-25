@@ -255,8 +255,6 @@ describe("PromisedScene", () => {
       expect(result).to.be.an("object");
       expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
-      expect(result.labels).to.be.an("array");
-      expect(result.labels).to.not.be.empty;
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
       expect(result.studio).to.equal(SwanOfSorrow.studio);
@@ -432,6 +430,8 @@ on top, pleasuring each other in unison, both of them squirming and squealing in
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
       expect(result.studio).to.equal("SEX ART");
+      expect(result.labels).to.be.an("array");
+      expect(result.labels).to.not.be.empty;
     });
     it("Search and Grab a Scene that has multiple parsed Studios - testing dd.mm.yyyy", async () => {
       const result = await runPlugin({
@@ -1357,7 +1357,6 @@ on top, pleasuring each other in unison, both of them squirming and squealing in
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
       expect(result.actors).to.contain("Abella Danger");
-      expect(result.actors).to.contain("Rob Piper");
       expect(result.studio).to.equal("Blacked");
     });
     it("Should use and match movie/actor(s) piped data (when they exist and are enabled through config)", async () => {
@@ -1390,9 +1389,9 @@ on top, pleasuring each other in unison, both of them squirming and squealing in
         // Piped data that should take precedence
         data: {
           actors: ["Mia Malkova"],
-          studio: "NEW SENSATIONS",
-          releaseDate: new Date(2013, 9, 10).valueOf(),
-          movie: "So Young So Sexy P.O.V. #8",
+          studio: "TEEN FIDELITY",
+          releaseDate: SwanOfSorrow.date,
+          movie: "",
         },
         testMode: {
           correctImportInfo: "y",
@@ -1401,15 +1400,12 @@ on top, pleasuring each other in unison, both of them squirming and squealing in
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
       expect(result.actors).to.contain("Mia Malkova");
-      expect(result.actors).to.contain("Mike Adriano");
-      expect(result.studio).to.equal("NEW SENSATIONS");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("Should ignore piped data when they exist and are disabled through config", async () => {
       const result = await runPlugin({
@@ -1471,9 +1467,9 @@ on top, pleasuring each other in unison, both of them squirming and squealing in
       const result = await runPlugin({
         ...mockContext,
         event: "sceneCreated",
-        scene: { releaseDate: new Date(2013, 9, 10).valueOf() },
+        scene: { releaseDate: SwanOfSorrow.date },
         $getStudio: async () => {
-          return { name: "New Sensations" };
+          return { name: SwanOfSorrow.studio };
         },
         $getMovies: async () => [],
         $getActors: async () => [{ name: "Mia Malkova" }],
@@ -1489,9 +1485,9 @@ on top, pleasuring each other in unison, both of them squirming and squealing in
             studios: "./plugins/PromisedScene/test/fixtures/studiosPopulated.db",
           },
         },
-        sceneName: "So Young So Sexy P.O.V. #8",
+        sceneName: "Swan of Sorrow Part 4",
         scenePath:
-          "Z:\\Keep\\test\\[New Sensations] Mia Malkova 2013.10.10 - So Young So Sexy P.O.V. #8.mp4",
+          "Z:\\Keep\\test\\[Teen Fidelity] Mia Malkova 2018.02.14 - Swan of Sorrow Part 4.mp4",
         testMode: {
           correctImportInfo: "y",
           testSiteUnavailable: false,
@@ -1499,13 +1495,11 @@ on top, pleasuring each other in unison, both of them squirming and squealing in
         },
       });
       expect(result).to.be.an("object");
-      expect(result.description).to.equal(
-        "Mia Malkova's back and more flexible more than ever. She is looking fine and is extremely horny for some sweet stud lovin'. Cum watch Mia Malkova work this hard cock to explosion of warm man chowder all across her face!"
-      );
+      expect(result.description).to.equal(SwanOfSorrow.description);
       expect(result.releaseDate).to.be.a("number");
       expect(result.thumbnail).to.equal(IMAGE_ID);
       expect(result.actors).to.be.a("Array");
-      expect(result.studio).to.equal("New Sensations");
+      expect(result.studio).to.equal(SwanOfSorrow.studio);
     });
     it("Should not match without the initial data", async () => {
       const result = await runPlugin({
