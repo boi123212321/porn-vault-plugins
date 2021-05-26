@@ -4,7 +4,7 @@ import { dateToTimestamp, matchElement } from "./utils";
 import { findAndLoadSceneConfig } from "./config";
 
 module.exports = async (ctx: MySceneContext): Promise<SceneOutput> => {
-  const { args, scenePath, $logger, $path, $throw } = ctx;
+  const { args, scenePath, $formatMessage, $logger, $path, $throw } = ctx;
 
   if (!scenePath) $throw("Uh oh. You shouldn't use the plugin for this type of event");
 
@@ -33,7 +33,7 @@ module.exports = async (ctx: MySceneContext): Promise<SceneOutput> => {
   function parseName(): Partial<{ name: string }> {
     if (!cfg || !cfg.nameMatcher) return {};
 
-    const matched = matchElement(ctx, cfg.nameMatcher);
+    const matched = matchElement(ctx, cfg.nameMatcher, cfg.characterReplacement);
     if (matched) {
       $logger.verbose(`Matched name: ${matched}`);
       return { name: matched.toString().trim() };
@@ -46,7 +46,7 @@ module.exports = async (ctx: MySceneContext): Promise<SceneOutput> => {
   function parseStudio(): Partial<{ studio: string }> {
     if (!cfg || !cfg.studioMatcher) return {};
 
-    const matched = matchElement(ctx, cfg.studioMatcher);
+    const matched = matchElement(ctx, cfg.studioMatcher, cfg.characterReplacement);
     if (matched) {
       $logger.verbose(`Matched studio: ${matched}`);
       return { studio: matched.toString().trim() };
@@ -59,7 +59,7 @@ module.exports = async (ctx: MySceneContext): Promise<SceneOutput> => {
   function parseActors(): Partial<{ actors: string[] }> {
     if (!cfg || !cfg.actorsMatcher) return {};
 
-    const matched = matchElement(ctx, cfg.actorsMatcher);
+    const matched = matchElement(ctx, cfg.actorsMatcher, cfg.characterReplacement);
     if (matched) {
       $logger.verbose(`Matched actor(s): ${matched}`);
       return { actors: matched };
@@ -72,7 +72,7 @@ module.exports = async (ctx: MySceneContext): Promise<SceneOutput> => {
   function parseMovie(): Partial<{ movie: string }> {
     if (!cfg || !cfg.movieMatcher) return {};
 
-    const matched = matchElement(ctx, cfg.movieMatcher);
+    const matched = matchElement(ctx, cfg.movieMatcher, cfg.characterReplacement);
     if (matched) {
       $logger.verbose(`Matched movie: ${matched}`);
       return { movie: matched.toString().trim() };
@@ -85,7 +85,7 @@ module.exports = async (ctx: MySceneContext): Promise<SceneOutput> => {
   function parseLabels(): Partial<{ labels: string[] }> {
     if (!cfg || !cfg.labelsMatcher) return {};
 
-    const matched = matchElement(ctx, cfg.labelsMatcher);
+    const matched = matchElement(ctx, cfg.labelsMatcher, cfg.characterReplacement);
 
     if (matched) {
       $logger.verbose(`Matched label(s): ${matched}`);
@@ -106,7 +106,7 @@ module.exports = async (ctx: MySceneContext): Promise<SceneOutput> => {
   };
 
   if (args.dry === true) {
-    $logger.info(`dry mode. Would have returned: ${sceneOutput}`);
+    $logger.info(`dry mode. Would have returned: ${$formatMessage(sceneOutput)}`);
     return {};
   } else {
     if (Object.keys(sceneOutput).length) {

@@ -175,4 +175,15 @@ describe("fileparser", () => {
     expect(result.actors).to.be.an("array").to.have.lengthOf(1);
     expect(result.actors).to.include("single match here");
   });
+  it("Character Replacement", async () => {
+    const base = "Studio.Name.21.01.01.Some.Title.Name.XXX.2160p.MP4-???";
+    const result = await runPlugin({
+      scenePath: `./plugins/fileparser/test/fixtures/characterReplacement/${base}.mp4`,
+      args: {},
+      $library: "/",
+    });
+    expect(result.releaseDate).to.equal(moment("2021-01-01", "YYYY-MM-DD").valueOf());
+    expect(result.studio).to.equal('Studio Name');
+    expect(result.name).to.be.equal('Some Title Name');
+  });
 });

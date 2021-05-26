@@ -7,6 +7,11 @@ export interface MySceneContext extends SceneContext {
   };
 }
 
+export interface IReplacementCharacter {
+  original: string;
+  replacement: string;
+}
+
 export type IFileParserConfigElem = {
   scopeDirname?: boolean;
   regex: string;
@@ -16,6 +21,7 @@ export type IFileParserConfigElem = {
 };
 
 export type IFileParserConfig = {
+  characterReplacement?: IReplacementCharacter[];
   studioMatcher?: IFileParserConfigElem;
   nameMatcher?: IFileParserConfigElem;
   actorsMatcher?: IFileParserConfigElem;

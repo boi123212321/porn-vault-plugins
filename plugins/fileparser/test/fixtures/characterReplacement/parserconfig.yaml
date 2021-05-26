@@ -1,0 +1,14 @@
+---
+characterReplacement:
+  - original: "\\."
+    replacement: " "
+studioMatcher:
+  regex: "(.+?).(\\d{2}).(\\d{2}).(\\d{2}).[A-z]"
+  matchesToUse:
+  - 1
+nameMatcher:
+  regex: "(\\d{2}).(\\d{2}).(\\d{2}).(.+?).XXX"
+  matchesToUse:
+  - 1
+  groupsToUse:
+  - 5
