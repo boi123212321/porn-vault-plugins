@@ -1,0 +1,44 @@
+{
+  "name": "vixen_network",
+  "version": "0.3.3",
+  "authors": ["boi123212321"],
+  "description": "Scrape data from VIXEN Network (VIXEN, BLACKED, BLACKED RAW, TUSHY, TUSHY RAW, DEEPER) scenes",
+  "events": ["sceneCreated", "sceneCustom"],
+  "arguments": [
+    {
+      "name": "stripString",
+      "type": "String",
+      "required": false,
+      "default": "[^a-zA-Z0-9'/\\,()[\\]{}-]",
+      "description": "Matcher string regex"
+    },
+    {
+      "name": "dry",
+      "type": "Boolean",
+      "required": false,
+      "default": false,
+      "description": "Whether to commit data changes"
+    },
+    {
+      "name": "deep",
+      "type": "Boolean",
+      "required": false,
+      "default": true,
+      "description": "Get extra info from scene details"
+    },
+    {
+      "name": "useThumbnail",
+      "type": "Boolean",
+      "required": false,
+      "default": false,
+      "description": "Download & attach scene thumbnail"
+    },
+    {
+      "name": "useChapters",
+      "type": "Boolean",
+      "required": false,
+      "default": false,
+      "description": "Create scene markers from chapters"
+    }
+  ]
+}
